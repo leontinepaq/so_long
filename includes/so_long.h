@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/12 01:53:35 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:23:02 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "../MinilibX/minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 #endif
