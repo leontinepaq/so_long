@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:06:31 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/12 18:08:53 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/13 14:53:11 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int main()
 	
 	mlx_key_hook(data.win_ptr, f, &data);
 	mlx_loop_hook(data.mlx_ptr, change_color, &data);
-	
 	mlx_loop(data.mlx_ptr);
 	
 	mlx_destroy_window(data.mlx_ptr,data.win_ptr);

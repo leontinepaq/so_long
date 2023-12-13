@@ -1,3 +1,12 @@
+
+/*
+Point qui se deplace dans la fenetre :
+- asdw pour le deplacement
+- gvb pour changer la couleur
+*/
+
+
+
 #include "includes/so_long.h"
 
 #include "minilibx-linux/mlx.h"
@@ -8,6 +17,9 @@
 #define MALLOC_ERROR	1
 #define	SIDE_LEN		1000
 
+int	X = 50;
+int Y = 50;
+
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -15,6 +27,7 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		endian;
 	int		line_len;
+	int		color;
 }				t_img;
 
 typedef struct	s_var
@@ -36,20 +49,11 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 
 void	color_screen(t_var *data, int color)
 {
-	for (int y = 0; y < SIDE_LEN; ++y)	
-	{
-		for (int x = 0; x < SIDE_LEN; ++x)
+	for (int x = X; x < X + 10; ++x)
+		for (int y = Y; y < Y + 10; ++y)	
 		{
-			/*
-			 * This function is much faster than the library one🏻
-			 * 	~Buffer in the image and push only when ready-> No flickering effect
-			*/
-			my_pixel_put(&data->img,
-						x, 
-						y, 
-						color);
+			my_pixel_put(&data->img, x, y, color);
 		}
-	}
 }
 
 int	f(int keysym, t_var *data)
@@ -57,19 +61,45 @@ int	f(int keysym, t_var *data)
 
 	if (keysym == XK_v) //violet
 	{
-		color_screen(data, 0x3d2b56);
+		data->img.color = 0xba77ee;
+		color_screen(data, data->img.color);
 	}
 	else if (keysym == XK_g) //green
 	{
-		color_screen(data, 0xCCF5AC);
+		data->img.color = 0xbef3a0;
+		color_screen(data, data->img.color);
 	}
 	else if (keysym == XK_b) //blue
 	{
-		color_screen(data, 0x808a9f);
+		data->img.color = 0xa0e1f3;
+		color_screen(data, data->img.color);
 	}	
 	else if (keysym == XK_Escape)
 		exit(1);
-
+	else if (keysym == XK_a)
+	{
+		color_screen(data, 0x000000);
+		X-=10;
+		color_screen(data, data->img.color);
+	}
+	else if (keysym == XK_d)
+	{
+		color_screen(data, 0x000000);
+		X+=10;
+		color_screen(data, data->img.color);
+	}
+	else if (keysym == XK_w)
+	{
+		color_screen(data, 0x000000);
+		Y-=10;
+		color_screen(data, data->img.color);
+	}
+	else if (keysym == XK_s)
+	{
+		color_screen(data, 0x000000);
+		Y+=10;
+		color_screen(data, data->img.color);
+	}
 	// push the READY image to window
 	// the last parameters are the offset image-window
 	mlx_put_image_to_window(data->mlx,
@@ -94,8 +124,9 @@ int	main()
 												&vars.img.bits_per_pixel, 
 												&vars.img.line_len, 
 												&vars.img.endian);
-	printf("Line_len %d <-> SIDE_LEN %d\nbpp %d\nendian %d\n", vars.img.line_len, SIDE_LEN, vars.img.bits_per_pixel, vars.img.endian);
-
+	//printf("Line_len %d <-> SIDE_LEN %d\nbpp %d\nendian %d\n", vars.img.line_len, SIDE_LEN, vars.img.bits_per_pixel, vars.img.endian);
+	vars.img.color = 0xbef3a0;
+	color_screen(&vars, vars.img.color);
 	mlx_key_hook(vars.win, f, &vars);
 	mlx_loop(vars.mlx);
 }

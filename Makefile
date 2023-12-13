@@ -1,6 +1,6 @@
 NAME = so_long
 
-SRCS = test2.c
+SRCS = test4.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
