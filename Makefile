@@ -1,6 +1,6 @@
 NAME = so_long
 
-SRCS = test4.c
+SRCS = main.c map_parsing.c check_map.c check_path.c display_tiles.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
