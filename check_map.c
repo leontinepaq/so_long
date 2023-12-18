@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:30:39 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/15 16:56:32 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:56:09 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_valid_path(t_map *map)
 
 	colored_map = ft_strdup(map->content);
 	if (!colored_map)
-		return (ft_printf("Error malloc\n"), EXIT_FAILURE);
+		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 	color_map(colored_map, map->width, map->height);
 	i = 0;
 	while (colored_map[i])

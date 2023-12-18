@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/15 17:04:22 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:05:42 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
+# include <X11/keysym.h>
 
+# define ERROR_MALLOC "Error malloc\n"
 # define ERROR_MAP_MESS "Error\nProblem with the configuration of the map : "
 # define ERROR_MAP_RECT "Map is not rectangular\n"
 # define ERROR_MAP_UNKNOWN "Unknown character\n"
@@ -36,6 +38,23 @@ typedef struct s_map
 	char	*content;
 }				t_map;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*img_pixels_ptr;
+	int		bits_per_pixel;
+	int		endian;
+	int		line_len;
+	int		color;
+}				t_img;
+
+typedef struct	s_var
+{
+	void	*mlx;
+	void	*win;
+	t_img	img;
+}				t_var;
+
 /*parse and check map*/
 int	open_map(t_map *map);
 int	check_map(t_map *map);
@@ -52,6 +71,6 @@ void	init_colored_map(char *map);
 void	color_map(char *map, int width, int height);
 
 /*display tiles*/
-int display_tiles(t_map *map);
+int display_tiles(t_map *map, char **tiles, t_var *vars);
 
 #endif

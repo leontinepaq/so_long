@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/15 16:57:30 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:40:00 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	read_map(int fd, t_map *map)
 		return (ft_printf(ERROR_MAP_MESS"Empty map\n"), EXIT_FAILURE);
 	map->content = ft_strdup(line);
 	if (!map->content)
-		return (ft_printf("Error malloc"), EXIT_FAILURE);
+		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 	map->width = ft_strlen(line)-1;
 	while (line)
 	{
@@ -34,7 +34,7 @@ int	read_map(int fd, t_map *map)
 			break ;
 		tmp = ft_strjoin(map->content, line);
 		if (!tmp)
-			return (ft_printf("Error malloc"), EXIT_FAILURE);
+			return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 		free(map->content);
 		map->content = tmp;
 	}
