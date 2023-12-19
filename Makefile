@@ -8,7 +8,7 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra 
-MLXFLAGS = -lm -lbsd -lXext -lX11
+MLXFLAGS = -lm -lbsd -lXext -lX11 -g3
 
 LIBFT_PATH		=	./libft
 LIBFT			=	$(LIBFT_PATH)/libft.a

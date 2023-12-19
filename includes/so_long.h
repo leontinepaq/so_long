@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/18 18:05:42 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:21:54 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_map
 	char	*content;
 }				t_map;
 
+
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -46,6 +47,7 @@ typedef struct s_img
 	int		endian;
 	int		line_len;
 	int		color;
+	char	*address;
 }				t_img;
 
 typedef struct	s_var

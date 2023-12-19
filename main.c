@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:51:52 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/19 15:18:09 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:38:03 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ int	main(void)
 	if (!tiles)
 		return (ft_printf(ERROR_MALLOC), free_map(map), close_window(vars), free(vars), EXIT_FAILURE);	
 	if (display_tiles(map, tiles, vars) == EXIT_FAILURE)
-		return (free_map(map), close_window(vars), free(vars), EXIT_FAILURE);
-
+		return (free_map(map), close_window(vars), free(vars), free(tiles), EXIT_FAILURE);
+	free_map(map);
 	mlx_key_hook(vars->win, escape, vars);
 	mlx_loop(vars->mlx);
-	free_map(map);
 	close_window(vars);
 	free(vars);
 	return (EXIT_SUCCESS);
