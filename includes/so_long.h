@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/19 21:21:54 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/20 11:05:59 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	char	*content;
+	char	**tiles;
 }				t_map;
 
 
@@ -73,6 +74,6 @@ void	init_colored_map(char *map);
 void	color_map(char *map, int width, int height);
 
 /*display tiles*/
-int display_tiles(t_map *map, char **tiles, t_var *vars);
+int display_tiles(t_map *map, t_var *vars);
 
 #endif

@@ -6,38 +6,30 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:39:26 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/19 21:32:14 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:07:57 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-void	free_tiles(char **tiles, t_map *map)
-{
-	int	y;
 
-	if (!tiles)
-		return ;
-	y = 0;
-	while (y < map->height && tiles[y])
-	{
-		free(tiles[y]);
-		y++;
-	}
-	free(tiles);
-}
 
-int	create_tiles(t_map *map, char **tiles)
+int	create_tiles(t_map *map)
 {
 	int	y;
 	int	i;
-
+	char	**tiles;
+	
+	tiles = malloc((map->height) * sizeof(char *));
+	if (!tiles)
+		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+	map->tiles = tiles;
 	y = 0;
 	while (y < map->height)
 	{
 		tiles[y] = malloc((map->width + 1) * sizeof(char));
 		if (!(tiles[y]))
-			return (ft_printf(ERROR_MALLOC), free_tiles(tiles, map), EXIT_FAILURE);
+			return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 		y++;
 	}
 	i = 0;
@@ -65,14 +57,14 @@ int	display_one_tile(char type, int x, int y, t_var vars)
 	return (EXIT_SUCCESS);
 }
 
-int	display_tiles(t_map *map, char **tiles, t_var *vars)
+int	display_tiles(t_map *map, t_var *vars)
 {
 	int		x;
 	int		y;
 
 	(void) vars;
 
-	if (create_tiles(map, tiles) == EXIT_FAILURE)
+	if (create_tiles(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	y = 0;
 	while (y < map->height)
@@ -85,5 +77,5 @@ int	display_tiles(t_map *map, char **tiles, t_var *vars)
 		}
 		y++;
 	}
-	return (free_tiles(tiles, map), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
