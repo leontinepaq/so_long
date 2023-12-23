@@ -1,14 +1,14 @@
 NAME = so_long
 
-SRCS = main.c map_parsing.c check_map.c check_path.c display_tiles.c
+SRCS = main.c map_parsing.c check_map.c check_path.c display_tiles.c render.c put_images.c closing_game.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra 
-MLXFLAGS = -lm -lbsd -lXext -lX11 -g3
+CFLAGS = -Wall -Werror -Wextra -g3
+MLXFLAGS = -lm -lbsd -lXext -lX11
 
 LIBFT_PATH		=	./libft
 LIBFT			=	$(LIBFT_PATH)/libft.a

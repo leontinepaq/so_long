@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:39:26 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/20 12:07:57 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/23 00:49:00 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int	create_tiles(t_map *map)
 		y++;
 	}
 	i = 0;
-	while (!map->content[i])
+	while (map->content[i])
 	{
 		if (map->content[i] != '\n')
+		{
 			tiles[i / (map->width + 1)][i % (map->width + 1)] = map->content[i];
+		}
 		i++;
 	}
 	i = 0;

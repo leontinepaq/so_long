@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/18 16:40:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/23 00:51:01 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	open_map(t_map *map)
 {
 	int		fd;
 
-	fd = open("maps/map_test.ber", O_RDONLY);
+	map->content = NULL;
+	map->tiles = NULL;
+	fd = open("maps/map_big.ber", O_RDONLY);
 	if (fd < 0)
 		return (ft_printf("Error open\n"), EXIT_FAILURE);
 	read_map(fd, map);
