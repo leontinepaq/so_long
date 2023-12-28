@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/23 00:26:13 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/28 11:16:21 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,35 @@ typedef struct	s_var
 	t_img	*img;
 }				t_var;
 
-/*parse and check map*/
+/*parse map*/
 int	open_map(t_map *map);
 int	check_map(t_map *map);
+int	create_tiles(t_map *map);
 int	read_map(int fd, t_map *map);
+
+/*check map*/
 int	check_size(t_map *map);
 int	check_content_chars(t_map *map);
 int	check_walls(t_map *map);
 int	check_valid_path(t_map *map);
 int	check_exit(char *map, int width);
+
+/*check path*/
 int	color_cell(char *map, int cell);
 int	color_adjacent_cells(char *map, int cell, int width, int height);
 int	color_map_cells(char *map, int width, int height);
 void	init_colored_map(char *map);
 void	color_map(char *map, int width, int height);
 
-/*display tiles*/
-int display_tiles(t_map *map, t_var *vars);
-
 /*render*/
+int	put_one_tile(int x, int y, t_var *vars, char *path);
+int	put_specific_tile(int x, int y, t_var *vars);
+int	put_tiles(t_var *vars);
+int	render(t_var *vars);
+
+/*put background*/
 int	put_layer_background(t_var *vars, char *path);
 int	put_background(t_var *vars);
-int	render(t_var *vars);
 
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);

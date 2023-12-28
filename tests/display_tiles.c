@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:39:26 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/23 00:49:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/28 11:13:26 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,12 @@ int	create_tiles(t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-int	display_one_tile(char type, int x, int y, t_var vars)
-{
-	(void) type;
-	(void) x;
-	(void) y;
-	(void) vars;
-	return (EXIT_SUCCESS);
-}
-
 int	display_tiles(t_map *map, t_var *vars)
 {
-	int		x;
-	int		y;
-
 	(void) vars;
-
-	if (create_tiles(map) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			//display_one_tile(tiles[y][x], x, y, vars);
-			x++;
-		}
-		y++;
-	}
+	(void) map;
+	
+//	if (create_tiles(map) == EXIT_FAILURE)
+//		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
