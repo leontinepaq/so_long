@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:11:47 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 13:40:44 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:48:46 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_img	*file_to_image(t_var *vars, char *path)
 		return (ft_printf(ERROR_MALLOC), NULL);
 	img->img_ptr = mlx_xpm_file_to_image(vars->mlx, path,
 			&img_width, &img_height);
-	if (!vars->img)
+	if (!img->img_ptr)
 		return (ft_printf(ERROR_MLX), free(img), NULL);
 	img->height = img_height;
 	img->width = img_width;

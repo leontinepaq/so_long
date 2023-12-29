@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:18:02 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 16:39:24 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:56:37 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ void	free_vars(t_var *vars)
 		free(vars);
 }
 
-int	close_window(t_var *vars)
+void	close_window(t_var *vars)
 {
 	if (vars->win)
-		mlx_destroy_window(vars->mlx, vars->win);
-	if (vars->mlx)
 	{
-		mlx_destroy_display(vars->mlx);
-		free (vars->mlx);
+		mlx_destroy_window(vars->mlx, vars->win);
+		vars->win = NULL;
 	}
-	return (EXIT_SUCCESS);
+
 }
 
 int	closure(t_var *vars)
 {
 	close_window(vars);
+	if (vars->mlx)
+	{
+		mlx_destroy_display(vars->mlx);
+		free (vars->mlx);
+		vars->mlx = NULL;
+	}
 	free_vars(vars);
 	exit(0);
 	return (EXIT_SUCCESS);

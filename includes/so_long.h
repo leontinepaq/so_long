@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 16:31:14 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:30:43 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_img	*file_to_image(t_var *vars, char *path);
 /*closing game*/
 void	free_tiles(t_map *map);
 void	free_vars(t_var *vars);
-int	close_window(t_var *vars);
+void	close_window(t_var *vars);
 int	closure(t_var *vars);
 
 #endif

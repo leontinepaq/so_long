@@ -6,19 +6,19 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:17:33 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 16:38:44 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:58:00 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-int	open_window(t_var *vars, t_map *map)
+int	open_window(t_var *vars)
 {
 	int	w;
 	int	h;
 
-	w = map->width * TILE_SIZE;
-	h = map->height * TILE_SIZE;
+	w = vars->map->width * TILE_SIZE;
+	h = vars->map->height * TILE_SIZE;
 	vars->mlx = mlx_init();
 	if (!vars->mlx)
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
@@ -58,9 +58,6 @@ void	find_special_items(t_var *vars)
 
 int	init_game(t_var *vars)
 {
-	vars->game = malloc(sizeof(t_game));
-	if (!vars->game)
-		return (EXIT_FAILURE);
 	vars->game->collectibles = 0;
 	vars->game->moves = 0;
 	vars->game->end_of_game = 0;
@@ -68,28 +65,40 @@ int	init_game(t_var *vars)
 	return (EXIT_SUCCESS);
 }
 
-int	main(void)
+t_var	*malloc_vars(void)
 {
-	t_map	*map;
 	t_var	*vars;
-
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+	
 	vars = malloc(sizeof(t_var));
 	if (!vars)
-		return (free(map), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-	vars->map = map;
-	if (open_map(map) == EXIT_FAILURE)
+		return (ft_printf(ERROR_MALLOC), NULL);
+	vars->map = malloc(sizeof(t_map));
+	if (!vars->map)
+		return (free(vars), ft_printf(ERROR_MALLOC), NULL);
+	vars->game = malloc(sizeof(t_game));
+	if (!vars->game)
+		return (free(vars->map), free(vars), ft_printf(ERROR_MALLOC), NULL);
+	return (vars);
+}
+
+int	main(void)
+{
+	t_var	*vars;
+
+	vars = malloc_vars();
+	if (!vars)
+		return (EXIT_FAILURE);
+	if (open_map(vars->map) == EXIT_FAILURE)
 		return (free_vars(vars), EXIT_FAILURE);
 	if (init_game(vars) == EXIT_FAILURE)
 		return (free_vars(vars), EXIT_FAILURE);
-	if (open_window(vars, map) == EXIT_FAILURE)
+	if (open_window(vars) == EXIT_FAILURE)
 		return (free_vars(vars), EXIT_FAILURE);
 	mlx_loop_hook(vars->mlx, &render, vars);
 	mlx_hook(vars->win, KeyPress, KeyPressMask, &manage_keys, vars);
 	mlx_hook(vars->win, ClientMessage, NoEventMask, &closure, vars);
 	mlx_loop(vars->mlx);
+
 	closure(vars);
 	return (EXIT_SUCCESS);
 }

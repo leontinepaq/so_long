@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 16:25:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:16:32 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	read_map(int fd, t_map *map)
 			break ;
 		tmp = ft_strjoin(map->content, line);
 		if (!tmp)
-			return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+			return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+			// leaks lies au  get nextline non fini d'etre lu
 		free(map->content);
 		map->content = tmp;
 	}
@@ -105,8 +106,9 @@ int	open_map(t_map *map)
 	map->tiles = NULL;
 	fd = open("maps/map_test.ber", O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error open\n"), EXIT_FAILURE);
-	read_map(fd, map);
+		return (ft_printf("Error reading the map\n"), EXIT_FAILURE);
+	if (read_map(fd, map) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	close(fd);
 	if (check_map(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

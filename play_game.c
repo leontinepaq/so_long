@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:26:03 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 16:30:01 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:57:23 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	move_player(t_var *vars, int move_x, int move_y)
 
 int	manage_keys(int keysym, t_var *vars)
 {
+	if (!vars->win)
+		return (EXIT_FAILURE);
 	if (keysym == XK_a || keysym == XK_Left)
 	{
 		move_player(vars, -1, 0);
@@ -91,8 +93,7 @@ int	manage_keys(int keysym, t_var *vars)
 	}
 	else if (keysym == XK_Escape)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		vars->win = NULL;
+		close_window(vars);
 	}
 	return (EXIT_SUCCESS);
 }
