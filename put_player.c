@@ -6,20 +6,15 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:33:43 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 14:01:43 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:54:19 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-#define SPRITE_SIZE 32
-#define NORMAL 0
-#define WALK 1
-#define JUMP 2
-
 void	make_transparent(t_img *img)
 {
-	int offset;
+	int	offset;
 
 	offset = 0;
 	while (offset < (img->line_len * img->height)
@@ -31,7 +26,7 @@ void	make_transparent(t_img *img)
 	}
 }
 
-t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col)
+t_img	*create_transp_sprite(t_var *vars)
 {
 	t_img	*sprite;
 
@@ -47,17 +42,27 @@ t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col)
 			&sprite->bits_per_pixel,
 			&sprite->line_len, &sprite->endian);
 	make_transparent(sprite);
-	int	x;
-	int	y;
-	int	color;
+	return (sprite);
+}
 
+t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col)
+{
+	t_img	*sprite;
+	int		x;
+	int		y;
+	int		color;
+
+	sprite = create_transp_sprite(vars);
+	if (!sprite)
+		return (NULL);
 	y = 0;
 	while (y < sprite->height)
 	{
 		x = 0;
 		while (x < sprite->width)
 		{
-			color = find_color_pixel(sheet, row * SPRITE_SIZE + x, col * SPRITE_SIZE + y);
+			color = find_color_pixel(sheet, row * SPRITE_SIZE + x,
+					col * SPRITE_SIZE + y);
 			my_pixel_put(sprite, x, y, color);
 			x++;
 		}
@@ -65,7 +70,6 @@ t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col)
 	}
 	return (sprite);
 }
-
 
 int	put_player(t_var *vars)
 {

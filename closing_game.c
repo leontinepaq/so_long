@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:18:02 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 14:07:49 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:39:24 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,6 @@ void	free_vars(t_var *vars)
 		free (vars->game);
 	if (vars)
 		free(vars);
-}
-
-int	escape(int keysym, t_var *vars)
-{
-	if (keysym == XK_Escape)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		vars->win = NULL;
-	}
-	return (EXIT_SUCCESS);
 }
 
 int	close_window(t_var *vars)

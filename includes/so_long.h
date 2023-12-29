@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 14:04:18 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:31:14 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@
 
 # define MAX_SIZE_MAP 500
 # define TILE_SIZE 32
+# define SPRITE_SIZE 32
 # define OVERLAP_SIZE 5
+
+# define NORMAL 0
+# define WALK 1
+# define JUMP 2
 
 typedef struct s_img
 {
@@ -59,8 +64,9 @@ typedef struct s_game
 {
 	int	x_player;
 	int	y_player;
-	int	collected_items;
+	int	collectibles;
 	int moves;
+	int	end_of_game;
 }	t_game;
 
 typedef struct	s_var
@@ -92,6 +98,12 @@ int	color_map_cells(char *map, int width, int height);
 void	init_colored_map(char *map);
 void	color_map(char *map, int width, int height);
 
+/*play game*/
+void	open_exit(t_var *vars);
+void	display_victory(t_var *vars, int move_x, int move_y);
+void	move_player(t_var *vars, int move_x, int move_y);
+int	manage_keys(int keysym, t_var *vars);
+
 /*render*/
 int	put_one_tile(int x, int y, t_var *vars, char *path);
 int	put_specific_tile(int x, int y, t_var *vars);
@@ -103,6 +115,9 @@ int	put_layer_background(t_var *vars, char *path);
 int	put_background(t_var *vars);
 
 /*put player*/
+void	make_transparent(t_img *img);
+t_img	*create_transp_sprite(t_var *vars);
+t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col);
 int	put_player(t_var *vars);
 
 /*put images*/
@@ -114,7 +129,6 @@ t_img	*file_to_image(t_var *vars, char *path);
 /*closing game*/
 void	free_tiles(t_map *map);
 void	free_vars(t_var *vars);
-int	escape(int keysym, t_var *vars);
 int	close_window(t_var *vars);
 int	closure(t_var *vars);
 

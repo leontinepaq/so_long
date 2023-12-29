@@ -1,6 +1,6 @@
 NAME = so_long
 
-SRCS = main.c parse_map.c check_map.c check_path.c render.c put_player.c put_background.c put_images.c closing_game.c
+SRCS = main.c parse_map.c check_map.c check_path.c play_game.c render.c put_player.c put_background.c put_images.c closing_game.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

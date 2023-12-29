@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:17:33 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 14:04:56 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:38:44 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,11 @@ int	open_window(t_var *vars, t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-/*int	move(int keysym, t_var *vars)
-{
-	if (keysym == XK_a || keysym == XK_Left)
-	{
-		;
-	}
-	else if (keysym == XK_d || keysym == XK_Right)
-	{
-		X+=10;
-	}
-	else if (keysym == XK_w || keysym == XK_Up)
-	{
-		Y-=10;
-	}
-	else if (keysym == XK_s || keysym == XK_Down)
-	{
-		Y+=10;
-	}
-	return (EXIT_SUCCESS);
-}
-*/
-int init_game(t_var *vars)
+void	find_special_items(t_var *vars)
 {
 	int	x;
 	int	y;
-	
-	vars->game = malloc(sizeof(t_game));
-	if (!vars->game)
-		return (EXIT_FAILURE);
-	vars->game->collected_items = 0;
-	vars->game->moves = 0;
+
 	y = 0;
 	while (y < vars->map->height)
 	{
@@ -73,12 +47,24 @@ int init_game(t_var *vars)
 			{
 				vars->game->x_player = x;
 				vars->game->y_player = y;
-				break;
 			}
+			if (vars->map->tiles[y][x] == 'C')
+				vars->game->collectibles++;
 			x++;
 		}
 		y++;
-	}
+	}	
+}
+
+int	init_game(t_var *vars)
+{
+	vars->game = malloc(sizeof(t_game));
+	if (!vars->game)
+		return (EXIT_FAILURE);
+	vars->game->collectibles = 0;
+	vars->game->moves = 0;
+	vars->game->end_of_game = 0;
+	find_special_items(vars);
 	return (EXIT_SUCCESS);
 }
 
@@ -101,8 +87,7 @@ int	main(void)
 	if (open_window(vars, map) == EXIT_FAILURE)
 		return (free_vars(vars), EXIT_FAILURE);
 	mlx_loop_hook(vars->mlx, &render, vars);
-//	mlx_hook(vars->win, KeyPress, KeyPressMask, &move, vars);
-	mlx_hook(vars->win, KeyPress, KeyPressMask, &escape, vars);
+	mlx_hook(vars->win, KeyPress, KeyPressMask, &manage_keys, vars);
 	mlx_hook(vars->win, ClientMessage, NoEventMask, &closure, vars);
 	mlx_loop(vars->mlx);
 	closure(vars);
