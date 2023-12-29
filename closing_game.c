@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:18:02 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/22 19:19:52 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 14:07:49 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,20 @@ void	free_tiles(t_map *map)
 	free(map->tiles);
 }
 
-void	free_map(t_map *map)
+void	free_vars(t_var *vars)
 {
-	if (!map)
-		return ;
-	if (map->content)
-		free(map->content);
-	if (map->tiles)
-		free_tiles(map);
-	free(map);
+	if (vars->map)
+	{
+		if (vars->map->content)
+			free(vars->map->content);
+		if (vars->map->tiles)
+			free_tiles(vars->map);
+		free(vars->map);
+	}
+	if (vars->game)
+		free (vars->game);
+	if (vars)
+		free(vars);
 }
 
 int	escape(int keysym, t_var *vars)
@@ -63,8 +68,7 @@ int	close_window(t_var *vars)
 int	closure(t_var *vars)
 {
 	close_window(vars);
-	free_map(vars->map);
-	free(vars);
+	free_vars(vars);
 	exit(0);
 	return (EXIT_SUCCESS);
 }

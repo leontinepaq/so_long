@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/28 11:16:21 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 14:04:18 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@
 # define TILE_SIZE 32
 # define OVERLAP_SIZE 5
 
-
-typedef struct s_map
-{
-	int		width;
-	int		height;
-	char	*content;
-	char	**tiles;
-}				t_map;
-
-
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -57,11 +47,28 @@ typedef struct s_img
 	int		height;
 }				t_img;
 
+typedef struct s_map
+{
+	int		width;
+	int		height;
+	char	*content;
+	char	**tiles;
+}				t_map;
+
+typedef struct s_game
+{
+	int	x_player;
+	int	y_player;
+	int	collected_items;
+	int moves;
+}	t_game;
+
 typedef struct	s_var
 {
 	void	*mlx;
 	void	*win;
 	t_map	*map;
+	t_game	*game;;
 	t_img	*img;
 }				t_var;
 
@@ -95,6 +102,9 @@ int	render(t_var *vars);
 int	put_layer_background(t_var *vars, char *path);
 int	put_background(t_var *vars);
 
+/*put player*/
+int	put_player(t_var *vars);
+
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);
 void	my_pixel_put(t_img *img, int x, int y, int color);
@@ -103,7 +113,7 @@ t_img	*file_to_image(t_var *vars, char *path);
 
 /*closing game*/
 void	free_tiles(t_map *map);
-void	free_map(t_map *map);
+void	free_vars(t_var *vars);
 int	escape(int keysym, t_var *vars);
 int	close_window(t_var *vars);
 int	closure(t_var *vars);

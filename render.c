@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/27 18:45:30 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:40:24 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	render(t_var *vars)
 	if (!vars->img)
 		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 // check si malloc -> fermer window ?
+//	ft_printf("TEST A\n");
 	vars->img->width = vars->map->width * TILE_SIZE;
 	vars->img->height = vars->map->height * TILE_SIZE;
 	vars->img->img_ptr = mlx_new_image(vars->mlx,
@@ -91,12 +92,18 @@ int	render(t_var *vars)
 	vars->img->img_pixels_ptr = mlx_get_data_addr(vars->img->img_ptr,
 			&vars->img->bits_per_pixel,
 			&vars->img->line_len, &vars->img->endian);
+//	ft_printf("TEST B\n");
 	if (put_background(vars) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+//	ft_printf("TEST C\n");
 	if (put_tiles(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+//	ft_printf("TEST D\n");
+	if (put_player(vars) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0);
 	mlx_destroy_image(vars->mlx, vars->img->img_ptr);
 	free(vars->img);
+//	ft_printf("TEST E\n");
 	return (EXIT_SUCCESS);
 }
