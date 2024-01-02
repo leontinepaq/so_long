@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:17:33 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 21:58:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/02 13:30:25 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	init_game(t_var *vars)
 	vars->game->collectibles = 0;
 	vars->game->moves = 0;
 	vars->game->end_of_game = 0;
+	vars->game->move_player = NORMAL;
+	vars->game->time_anim = 0;
+	vars->game->anim_player = 0;
 	find_special_items(vars);
 	return (EXIT_SUCCESS);
 }
@@ -98,7 +101,6 @@ int	main(void)
 	mlx_hook(vars->win, KeyPress, KeyPressMask, &manage_keys, vars);
 	mlx_hook(vars->win, ClientMessage, NoEventMask, &closure, vars);
 	mlx_loop(vars->mlx);
-
 	closure(vars);
 	return (EXIT_SUCCESS);
 }

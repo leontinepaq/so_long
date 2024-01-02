@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 19:30:43 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:52:04 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <sys/time.h>
+
 
 # define ERROR_MALLOC "Error malloc\n"
 # define ERROR_MLX "Error MLX\n"
@@ -35,10 +37,12 @@
 # define TILE_SIZE 32
 # define SPRITE_SIZE 32
 # define OVERLAP_SIZE 5
+# define DELAY 1000
 
 # define NORMAL 0
-# define WALK 1
-# define JUMP 2
+# define WALK 2
+# define JUMP 5
+
 
 typedef struct s_img
 {
@@ -64,6 +68,9 @@ typedef struct s_game
 {
 	int	x_player;
 	int	y_player;
+	int	move_player;
+	int	anim_player;
+	int	time_anim;
 	int	collectibles;
 	int moves;
 	int	end_of_game;
