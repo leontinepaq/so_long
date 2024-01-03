@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:11:47 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 18:48:46 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:44:13 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,20 @@ void	overlap_image(t_var *vars, t_img *src, int pos_x, int pos_y)
 	}
 }
 
+void	make_transparent(t_img *img)
+{
+	int	offset;
+
+	offset = 0;
+	while (offset < (img->line_len * img->height)
+		+ (img->width * (img->bits_per_pixel / 8))
+		&& offset >= 0)
+	{
+		*((unsigned int *)(offset + img->img_pixels_ptr)) = 0xFF000000;
+		offset += img->bits_per_pixel / 8;
+	}
+}
+
 t_img	*file_to_image(t_var *vars, char *path)
 {
 	t_img	*img;
@@ -67,10 +81,12 @@ t_img	*file_to_image(t_var *vars, char *path)
 	img->img_ptr = mlx_xpm_file_to_image(vars->mlx, path,
 			&img_width, &img_height);
 	if (!img->img_ptr)
-		return (ft_printf(ERROR_MLX), free(img), NULL);
+		return (ft_printf(ERROR_MLX), ft_printf("Reading file : %s\n", path),
+			free(img), NULL);
 	img->height = img_height;
 	img->width = img_width;
 	img->img_pixels_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_len, &img->endian);
+	img = scale_img(vars, img);
 	return (img);
 }

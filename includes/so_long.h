@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/29 23:52:04 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:56:00 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,36 @@ typedef struct s_game
 	int	end_of_game;
 }	t_game;
 
+typedef struct s_assets
+{
+	t_img	*collectible;
+	t_img	*exit_close;
+	t_img	*exit_open;
+	t_img	*player;
+	t_img	*tile_ground;
+	t_img	*tile_wall;
+	t_img	*background_1;
+	t_img	*background_2;
+	t_img	*background_3;
+}	t_assets;
+
 typedef struct	s_var
 {
-	void	*mlx;
-	void	*win;
-	t_map	*map;
-	t_game	*game;;
-	t_img	*img;
+	void		*mlx;
+	void		*win;
+	t_map		*map;
+	t_game		*game;
+	t_img		*img;
+	int			scale;
+	t_assets	*assets;
 }				t_var;
+
+/*init_functions*/
+int	open_assets(t_var *vars);
+int	open_window(t_var *vars);
+void	find_special_items(t_var *vars);
+int	init_game(t_var *vars);
+t_var	*malloc_vars(void);
 
 /*parse map*/
 int	open_map(t_map *map);
@@ -112,17 +134,15 @@ void	move_player(t_var *vars, int move_x, int move_y);
 int	manage_keys(int keysym, t_var *vars);
 
 /*render*/
-int	put_one_tile(int x, int y, t_var *vars, char *path);
-int	put_specific_tile(int x, int y, t_var *vars);
+void	put_specific_tile(int x, int y, t_var *vars);
 int	put_tiles(t_var *vars);
 int	render(t_var *vars);
 
 /*put background*/
-int	put_layer_background(t_var *vars, char *path);
+int	put_layer_background(t_var *vars, t_img *background);
 int	put_background(t_var *vars);
 
 /*put player*/
-void	make_transparent(t_img *img);
 t_img	*create_transp_sprite(t_var *vars);
 t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col);
 int	put_player(t_var *vars);
@@ -130,12 +150,20 @@ int	put_player(t_var *vars);
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);
 void	my_pixel_put(t_img *img, int x, int y, int color);
+void	make_transparent(t_img *img);
 void	overlap_image(t_var *vars, t_img *src, int pos_x, int pos_y);
 t_img	*file_to_image(t_var *vars, char *path);
 
-/*closing game*/
+/*scale image*/
+t_img	*scale_img(t_var *vars, t_img *img);
+
+/*free functions*/
 void	free_tiles(t_map *map);
+void	free_one_asset(void *mlx, t_img *asset);
+void	free_assets(t_var *vars);
 void	free_vars(t_var *vars);
+
+/*close game*/
 void	close_window(t_var *vars);
 int	closure(t_var *vars);
 
