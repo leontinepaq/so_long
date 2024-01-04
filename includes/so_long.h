@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 12:56:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:49:15 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 # define WALK 2
 # define JUMP 5
 
+# define POS_CENTER 0
+# define POS_UP 1
+# define POS_LEFT 2
+# define POS_RIGHT 3
 
 typedef struct s_img
 {
@@ -64,16 +68,23 @@ typedef struct s_map
 	char	**tiles;
 }				t_map;
 
+typedef struct s_position
+{
+	int	x_tile;
+	int	y_tile;
+	int	pos_on_tile;
+	
+} t_pos;
+
 typedef struct s_game
 {
-	int	x_player;
-	int	y_player;
-	int	move_player;
-	int	anim_player;
-	int	time_anim;
-	int	collectibles;
-	int moves;
-	int	end_of_game;
+	t_pos	*pos_player;
+	int		move_player;
+	int		anim_player;
+	int		time_anim;
+	int		collectibles;
+	int 	moves;
+	int		end_of_game;
 }	t_game;
 
 typedef struct s_assets
@@ -101,13 +112,11 @@ typedef struct	s_var
 }				t_var;
 
 /*init_functions*/
-int	open_assets(t_var *vars);
-int	open_window(t_var *vars);
+t_var	*malloc_vars(void);
 void	find_special_items(t_var *vars);
 int	init_game(t_var *vars);
-t_var	*malloc_vars(void);
 
-/*parse map*/
+/*open map*/
 int	open_map(t_map *map);
 int	check_map(t_map *map);
 int	create_tiles(t_map *map);
@@ -126,6 +135,11 @@ int	color_adjacent_cells(char *map, int cell, int width, int height);
 int	color_map_cells(char *map, int width, int height);
 void	init_colored_map(char *map);
 void	color_map(char *map, int width, int height);
+
+/*open window*/
+int	open_assets(t_var *vars);
+int	open_img(t_var *vars);
+int	open_window(t_var *vars);
 
 /*play game*/
 void	open_exit(t_var *vars);

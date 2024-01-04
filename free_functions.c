@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:47:15 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 12:49:44 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:19:12 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@ void	free_vars(t_var *vars)
 		free(vars->map);
 	}
 	if (vars->game)
+	{
+		if (vars->game->pos_player)
+			free(vars->game->pos_player);
 		free (vars->game);
+	}
+	if (vars->img)
+	{
+		free(vars->img);
+	}
 	if (vars)
 		free(vars);
 }

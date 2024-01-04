@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 13:01:46 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:54:43 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,31 +64,73 @@ int	put_tiles(t_var *vars)
 	return (EXIT_SUCCESS);
 }
 
+int	render_img(t_var *vars)
+{
+	if (put_background(vars) == EXIT_FAILURE
+		|| put_tiles(vars) == EXIT_FAILURE
+		|| put_player(vars) == EXIT_FAILURE)
+		return (close_window(vars), EXIT_FAILURE);
+	if (mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0)
+		== EXIT_FAILURE)
+		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+void	anim_landing(t_var *vars)
+{
+	vars->game->anim_player = 6;
+	render_img(vars);
+	usleep(500000);
+	vars->game->anim_player = 7;
+	render_img(vars);
+	usleep(500000);
+	vars->game->move_player = NORMAL;
+	vars->game->anim_player = 0;
+}
+
+void	gravity(t_var *vars)
+{
+	int		x;
+	int 	y;
+	char	tile_bellow;
+
+	if (vars->game->pos_player->pos_on_tile == POS_UP)
+	{
+		usleep (200000);
+		vars->game->pos_player->pos_on_tile = POS_CENTER;
+		return ;
+	}
+	if (vars->game->pos_player->pos_on_tile == POS_CENTER)
+	{
+		x = vars->game->pos_player->x_tile;
+		y = vars->game->pos_player->y_tile + 1;
+		tile_bellow = vars->map->tiles[y][x];
+		if (tile_bellow == '0' || tile_bellow == 'C')
+		{
+			usleep (150000);
+			vars->game->pos_player->pos_on_tile = POS_UP;
+			move_player(vars, 0, 1);
+			vars->game->move_player = JUMP;
+			vars->game->anim_player = 5;
+		}
+		else
+		{
+			vars->game->move_player = NORMAL;
+			vars->game->anim_player = 0;
+		}
+		/*
+			if (vars->game->move_player == JUMP)
+				anim_landing(vars);
+		*/
+	}
+}
+
 int	render(t_var *vars)
 {
 	if (!vars->win)
 		return (EXIT_FAILURE);
-	vars->img = malloc(sizeof(t_img));
-	if (!vars->img)
-		return (close_window(vars), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-	vars->img->width = vars->map->width * TILE_SIZE * vars->scale;
-	vars->img->height = vars->map->height * TILE_SIZE * vars->scale;
-	vars->img->img_ptr = mlx_new_image(vars->mlx,
-			vars->img->width, vars->img->height);
-	if (!vars->img->img_ptr)
-		return (free(vars->img), close_window(vars),
-			ft_printf(ERROR_MLX), EXIT_FAILURE);
-	vars->img->img_pixels_ptr = mlx_get_data_addr(vars->img->img_ptr,
-			&vars->img->bits_per_pixel,
-			&vars->img->line_len, &vars->img->endian);
-	if (put_background(vars) == EXIT_FAILURE
-		|| put_tiles(vars) == EXIT_FAILURE
-		|| put_player(vars) == EXIT_FAILURE)
-	{
-		mlx_destroy_image(vars->mlx, vars->img->img_ptr);
-		return (close_window(vars), free(vars->img), EXIT_FAILURE);
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0);
-	mlx_destroy_image(vars->mlx, vars->img->img_ptr);
-	return (free(vars->img), EXIT_SUCCESS);
+	if (render_img(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	gravity(vars);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:33:43 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 13:02:02 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:55:06 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,20 @@ void	animate_player(t_game *game)
 	}
 }
 
+void	find_coordinates(int *x_ptr, int *y_ptr, t_var *vars, t_pos *pos_player)
+{
+	*x_ptr = ((pos_player->x_tile * TILE_SIZE)
+			+ (TILE_SIZE - SPRITE_SIZE) / 2) * vars->scale;
+	*y_ptr = ((pos_player->y_tile * TILE_SIZE)
+			+ (TILE_SIZE - SPRITE_SIZE)) * vars->scale;
+	if (pos_player->pos_on_tile == POS_UP)
+		*y_ptr -= TILE_SIZE / 2 * vars->scale;
+	else if (pos_player->pos_on_tile == POS_RIGHT)
+		*x_ptr += TILE_SIZE / 3 * vars->scale;
+	else if (pos_player->pos_on_tile == POS_LEFT)
+		*x_ptr += TILE_SIZE / 3 * vars->scale;
+}
+
 int	put_player(t_var *vars)
 {
 	t_img	*player;
@@ -100,15 +114,12 @@ int	put_player(t_var *vars)
 	int		y;
 
 	animate_player(vars->game);
-	x = vars->game->x_player;
-	y = vars->game->y_player;
 	player = crop_sprite(vars->assets->player, vars,
 			vars->game->move_player, vars->game->anim_player);
 	if (!player)
 		return (EXIT_FAILURE);
-	overlap_image(vars, player,
-		(x * (TILE_SIZE) + (TILE_SIZE - SPRITE_SIZE) / 2) * vars->scale,
-		((y * TILE_SIZE) + (TILE_SIZE - SPRITE_SIZE)) * vars->scale);
+	find_coordinates(&x, &y, vars, vars->game->pos_player);
+	overlap_image(vars, player, x, y);
 	mlx_destroy_image(vars->mlx, player->img_ptr);
 	free(player);
 	return (EXIT_SUCCESS);
