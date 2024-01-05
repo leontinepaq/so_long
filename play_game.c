@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:26:03 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 15:25:25 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:22:36 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,47 @@ void	open_exit(t_var *vars)
 
 void	display_victory(t_var *vars, int move_x, int move_y)
 {
-	vars->map->tiles[vars->game->pos_player->y_tile][vars->game->pos_player->x_tile] = '0';
-	vars->game->pos_player->x_tile += move_x;
-	vars->game->pos_player->y_tile += move_y;
+	vars->map->tiles[vars->game->player->position->y_tile][vars->game->player->position->x_tile] = '0';
+	vars->game->player->position->x_tile += move_x;
+	vars->game->player->position->y_tile += move_y;
 	vars->game->end_of_game = 1;
 	ft_printf("VICTORY !!!\n");
 }
+void	update_player(t_var *vars, int move_x, int move_y)
+{
+	int	x;
+	int	y;
 
+	x = vars->game->player->position->x_tile;
+	y = vars->game->player->position->y_tile;
+	if (move_y == -1)
+	{
+		vars->game->player->movement = JUMP;
+		vars->game->player->direction = DIR_UP;
+		vars->game->player->anim_frame = 0;////////utile ?
+		vars->game->player->timestamp = -1;
+	}
+	if (move_y == 1)
+	{
+		vars->game->player->movement = FALL;
+		vars->game->player->direction = DIR_DOWN;
+		vars->game->player->anim_frame = 0;////////utile ?
+	}
+//	ft_printf("-- tile_below : %c, move_x : %d\n", vars->map->tiles[y + 1][x], move_x);
+	if (vars->map->tiles[y + 1][x] == '1'
+		&& (move_x == - 1 || move_x == 1))
+	{
+		vars->game->player->movement = WALK;
+		vars->game->player->anim_frame = 0;////////utile ?
+		vars->game->player->timestamp = -1;
+		if (move_x == - 1)
+			vars->game->player->anim_frame = 4;////////utile ?
+	}
+	if (move_x == -1)	
+		vars->game->player->direction = DIR_LEFT;
+	else if (move_x == 1)
+		vars->game->player->direction = DIR_RIGHT;
+}
 
 void	move_player(t_var *vars, int move_x, int move_y)
 {
@@ -51,11 +85,12 @@ void	move_player(t_var *vars, int move_x, int move_y)
 
 	if (vars->game->end_of_game == 1)
 		return ;
-	x = vars->game->pos_player->x_tile;
-	y = vars->game->pos_player->y_tile;
+	x = vars->game->player->position->x_tile;
+	y = vars->game->player->position->y_tile;
 	if (vars->map->tiles[y + move_y][x + move_x] == 'C'
 		|| vars->map->tiles[y + move_y][x + move_x] == '0')
 	{
+		update_player(vars, move_x, move_y);
 		if (vars->map->tiles[y + move_y][x + move_x] == 'C')
 		{
 			vars->game->collectibles--;
@@ -64,8 +99,8 @@ void	move_player(t_var *vars, int move_x, int move_y)
 		}
 		vars->map->tiles[y + move_y][x + move_x] = 'P';
 		vars->map->tiles[y][x] = '0';
-		vars->game->pos_player->x_tile += move_x;
-		vars->game->pos_player->y_tile += move_y;
+		vars->game->player->position->x_tile += move_x;
+		vars->game->player->position->y_tile += move_y;
 		vars->game->moves++;
 	}
 	else if (vars->map->tiles[y + move_y][x + move_x] == 'e')

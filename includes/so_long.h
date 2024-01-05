@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 16:49:15 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:43:06 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,17 @@
 # define NORMAL 0
 # define WALK 2
 # define JUMP 5
+# define FALL 6
 
 # define POS_CENTER 0
 # define POS_UP 1
 # define POS_LEFT 2
 # define POS_RIGHT 3
+
+# define DIR_DOWN 0
+# define DIR_UP 1
+# define DIR_LEFT 2
+# define DIR_RIGHT 3
 
 typedef struct s_img
 {
@@ -76,12 +82,18 @@ typedef struct s_position
 	
 } t_pos;
 
+typedef struct s_anim
+{
+	time_t	timestamp;
+	int			movement;
+	t_pos		*position;
+	int			direction;
+	int			anim_frame;
+} t_anim;
+
 typedef struct s_game
 {
-	t_pos	*pos_player;
-	int		move_player;
-	int		anim_player;
-	int		time_anim;
+	t_anim	*player;
 	int		collectibles;
 	int 	moves;
 	int		end_of_game;
@@ -160,6 +172,9 @@ int	put_background(t_var *vars);
 t_img	*create_transp_sprite(t_var *vars);
 t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col);
 int	put_player(t_var *vars);
+
+/*animate player*/
+void	animate_player(t_var *vars);
 
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);

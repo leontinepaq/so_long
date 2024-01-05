@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:33:43 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/04 12:55:06 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:59:41 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,54 +57,18 @@ t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col)
 	return (sprite);
 }
 
-void	animate_player(t_game *game)
+void	find_coordinates(int *x_ptr, int *y_ptr, t_var *vars, t_pos *position)
 {
-    struct 			timeval te;
-	unsigned int	milliseconds;
-	
-    gettimeofday(&te, NULL); // get current time
-    milliseconds = (unsigned int)(te.tv_sec*1000LL + te.tv_usec/1000) % DELAY;
-	if (game->move_player == NORMAL)
-	{
-		if (milliseconds < DELAY / 2)
-			game->anim_player = 0;
-		else 
-			game->anim_player = 1;
-	}
-	if (game->move_player == WALK)
-	{
-		if ((milliseconds + DELAY - game->time_anim) % DELAY < DELAY / 4)
-		{
-			game->anim_player = 0;
-		}	
-		else if ((milliseconds + DELAY - game->time_anim) % DELAY < 2 * DELAY / 4)
-		{
-			game->anim_player = 1;
-		}
-		else if ((milliseconds + DELAY - game->time_anim) % DELAY < 3 * DELAY / 4)
-		{
-			game->anim_player = 2;
-		}
-		else 
-			{
-				game->anim_player = 3;
-				game->move_player = NORMAL;
-			}
-	}
-}
-
-void	find_coordinates(int *x_ptr, int *y_ptr, t_var *vars, t_pos *pos_player)
-{
-	*x_ptr = ((pos_player->x_tile * TILE_SIZE)
+	*x_ptr = ((position->x_tile * TILE_SIZE)
 			+ (TILE_SIZE - SPRITE_SIZE) / 2) * vars->scale;
-	*y_ptr = ((pos_player->y_tile * TILE_SIZE)
+	*y_ptr = ((position->y_tile * TILE_SIZE)
 			+ (TILE_SIZE - SPRITE_SIZE)) * vars->scale;
-	if (pos_player->pos_on_tile == POS_UP)
+	if (position->pos_on_tile == POS_UP)
 		*y_ptr -= TILE_SIZE / 2 * vars->scale;
-	else if (pos_player->pos_on_tile == POS_RIGHT)
+	else if (position->pos_on_tile == POS_RIGHT)
 		*x_ptr += TILE_SIZE / 3 * vars->scale;
-	else if (pos_player->pos_on_tile == POS_LEFT)
-		*x_ptr += TILE_SIZE / 3 * vars->scale;
+	else if (position->pos_on_tile == POS_LEFT)
+		*x_ptr -= TILE_SIZE / 3 * vars->scale;
 }
 
 int	put_player(t_var *vars)
@@ -113,12 +77,11 @@ int	put_player(t_var *vars)
 	int		x;
 	int		y;
 
-	animate_player(vars->game);
 	player = crop_sprite(vars->assets->player, vars,
-			vars->game->move_player, vars->game->anim_player);
+			vars->game->player->movement, vars->game->player->anim_frame);
 	if (!player)
 		return (EXIT_FAILURE);
-	find_coordinates(&x, &y, vars, vars->game->pos_player);
+	find_coordinates(&x, &y, vars, vars->game->player->position);
 	overlap_image(vars, player, x, y);
 	mlx_destroy_image(vars->mlx, player->img_ptr);
 	free(player);

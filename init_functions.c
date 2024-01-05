@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:52:31 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/04 12:49:19 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:53:01 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ t_var	*malloc_vars(void)
 	vars->game = malloc(sizeof(t_game));
 	if (!vars->game)
 		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
-	vars->game->pos_player = malloc(sizeof(t_pos));
-	if (!vars->game->pos_player)
+	vars->game->player = malloc(sizeof(t_anim));
+	if (! vars->game->player)
+		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
+	vars->game->player->position = malloc(sizeof(t_pos));
+	if (!vars->game->player->position)
 		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
 	vars->img = malloc(sizeof(t_img));
 	if (!vars->img)
@@ -50,9 +53,9 @@ void	find_special_items(t_var *vars)
 		{
 			if (vars->map->tiles[y][x] == 'P')
 			{
-				vars->game->pos_player->x_tile = x;
-				vars->game->pos_player->y_tile = y;
-				vars->game->pos_player->pos_on_tile = POS_CENTER;
+				vars->game->player->position->x_tile = x;
+				vars->game->player->position->y_tile = y;
+				vars->game->player->position->pos_on_tile = POS_CENTER;
 			}
 			if (vars->map->tiles[y][x] == 'C')
 				vars->game->collectibles++;
@@ -67,9 +70,10 @@ int	init_game(t_var *vars)
 	vars->game->collectibles = 0;
 	vars->game->moves = 0;
 	vars->game->end_of_game = 0;
-	vars->game->move_player = NORMAL;
-	vars->game->time_anim = 0;
-	vars->game->anim_player = 0;
+	vars->game->player->timestamp = 0;/////////////
+	vars->game->player->movement = NORMAL;
+	vars->game->player->direction = DIR_RIGHT;
+	vars->game->player->anim_frame = 0;
 	find_special_items(vars);
 	return (EXIT_SUCCESS);
 }
