@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/05 14:07:50 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:52:47 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int	render(t_var *vars)
 		|| put_tiles(vars) == EXIT_FAILURE
 		|| put_player(vars) == EXIT_FAILURE)
 		return (close_window(vars), EXIT_FAILURE);
+	if (vars->map->tiles[vars->game->player->position->y_tile][vars->game->player->position->x_tile] != 'P'
+		&& vars->map->tiles[vars->game->player->position->y_tile][vars->game->player->position->x_tile] != 'e')
+		ft_printf("player on wrong tile\n");////////////////////////////////////////////////////
 	if (mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0)
 		== EXIT_FAILURE)
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/05 17:33:00 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:49:12 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int	open_window(t_var *vars);
 /*play game*/
 void	open_exit(t_var *vars);
 void	display_victory(t_var *vars, int move_x, int move_y);
+void	update_player(t_var *vars, int move_x, int move_y);
+void	move_on_tiles(t_var *vars, int move_x, int move_y);
 void	move_player(t_var *vars, int move_x, int move_y);
 int	manage_keys(int keysym, t_var *vars);
 
@@ -175,6 +177,8 @@ int	put_player(t_var *vars);
 
 /*animate player*/
 void	animate_player(t_var *vars);
+
+void	animate_fall(t_var *vars, t_anim *player);
 
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);
