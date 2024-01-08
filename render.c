@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 20:03:04 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:20:53 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@ int	render(t_var *vars)
 		|| put_tiles(vars) == EXIT_FAILURE
 		|| put_player(vars) == EXIT_FAILURE)
 		return (close_window(vars), EXIT_FAILURE);
+	if (vars->game->end_of_game == 1)
+	{
+		overlap_image(vars, vars->assets->victory,
+			(vars->game->player->position->x_tile - 1)
+			* TILE_SIZE * vars->scale,
+			(vars->game->player->position->y_tile - 1)
+			* TILE_SIZE * vars->scale);
+	}
 	if (mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0)
 		== EXIT_FAILURE)
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);

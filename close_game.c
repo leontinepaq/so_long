@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:18:02 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 16:20:22 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 22:56:13 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	close_window(t_var *vars)
 {
 	if (vars->win)
 	{
-		if (vars->img->img_ptr)
-			mlx_destroy_image(vars->mlx, vars->img->img_ptr);
+		if (vars->img)
+		{
+			if (vars->img->img_ptr)
+				mlx_destroy_image(vars->mlx, vars->img->img_ptr);
+		}
 		mlx_destroy_window(vars->mlx, vars->win);
 		vars->win = NULL;
 	}

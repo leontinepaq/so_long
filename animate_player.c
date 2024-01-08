@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 21:03:21 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:22:42 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	animate_player(t_var *vars)
 }
 /*
 		ft_printf("NEXT MOVE\n");
-		ft_printf("movement : %d - dir : %d - anim_frame : %d ", vars->game->player->movement, vars->game->player->direction, vars->game->player->anim_frame);
-		ft_printf("- pos tile : %d - x_tile : %d\n", vars->game->player->position->pos_on_tile,  vars->game->player->position->x_tile);
+		ft_printf("movement : %d - dir : %d - anim_frame : %d 
+		- pos tile : %d - x_tile : %d\n",
+		vars->game->player->movement, vars->game->player->direction,
+		vars->game->player->anim_frame, vars->game->player->position->pos_on_tile,
+		vars->game->player->position->x_tile);
 */

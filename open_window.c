@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/04 17:29:48 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:11:23 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int	open_assets(t_var *vars)
 	vars->assets->tile_ground = file_to_image(vars, "designs/tile_ground.xpm");
 	vars->assets->tile_wall = file_to_image(vars, "designs/tile_wall.xpm");
 	vars->assets->player = file_to_image(vars,
-			"designs/AnimationSheet_Character2.xpm");
+			"designs/AnimationSheet_Character3.xpm");
 	vars->assets->background_1 = file_to_image(vars, "designs/Rock1.xpm");
 	vars->assets->background_2 = file_to_image(vars, "designs/Rock2.xpm");
 	vars->assets->background_3 = file_to_image(vars, "designs/Rock3.xpm");
+	vars->assets->victory = file_to_image(vars, "designs/victory.xpm");
 	if (!vars->assets->collectible
 		|| !vars->assets->exit_close
 		|| !vars->assets->exit_open
@@ -32,7 +33,8 @@ int	open_assets(t_var *vars)
 		|| !vars->assets->player
 		|| !vars->assets->background_1
 		|| !vars->assets->background_2
-		|| !vars->assets->background_3)
+		|| !vars->assets->background_3
+		|| !vars->assets->victory)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -41,7 +43,7 @@ int	open_img(t_var *vars)
 {
 	vars->img->width = vars->map->width * TILE_SIZE * vars->scale;
 	vars->img->height = vars->map->height * TILE_SIZE * vars->scale;
-		vars->img->img_ptr = mlx_new_image(vars->mlx,
+	vars->img->img_ptr = mlx_new_image(vars->mlx,
 			vars->img->width, vars->img->height);
 	if (!vars->img->img_ptr)
 		return (free(vars->img), close_window(vars),
@@ -76,7 +78,7 @@ int	open_window(t_var *vars)
 		free (vars->mlx);
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
 	}
-	if (open_assets(vars) == EXIT_FAILURE || open_img(vars) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	if (open_img(vars) == EXIT_FAILURE || open_assets(vars) == EXIT_FAILURE)
+		return (closure(vars), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 21:02:17 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 22:38:47 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_assets
 	t_img	*background_1;
 	t_img	*background_2;
 	t_img	*background_3;
+	t_img	*victory;
 }	t_assets;
 
 typedef struct	s_var
