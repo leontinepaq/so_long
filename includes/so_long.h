@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 17:49:12 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:02:17 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,15 @@ int	open_assets(t_var *vars);
 int	open_img(t_var *vars);
 int	open_window(t_var *vars);
 
+/*move player.c*/
+void	update_playe_on_x(t_var *vars, int move_x);
+void	update_playe_on_y(t_var *vars, int move_y);
+void	move_on_tiles(t_var *vars, int move_x, int move_y);
+void	move_player(t_var *vars, int move_x, int move_y);
+
 /*play game*/
 void	open_exit(t_var *vars);
 void	display_victory(t_var *vars, int move_x, int move_y);
-void	update_player(t_var *vars, int move_x, int move_y);
-void	move_on_tiles(t_var *vars, int move_x, int move_y);
-void	move_player(t_var *vars, int move_x, int move_y);
 int	manage_keys(int keysym, t_var *vars);
 
 /*render*/
@@ -176,8 +179,16 @@ t_img	*crop_sprite(t_img *sheet, t_var *vars, int row, int col);
 int	put_player(t_var *vars);
 
 /*animate player*/
+int	is_player_on_ground(t_var *vars);
+void	first_animation(t_var *vars, t_anim *player, time_t current_timestamp);
+void	play_movement_animation(t_var *vars);
 void	animate_player(t_var *vars);
 
+/*animation movements*/
+void	animate_normal(t_var *vars, t_anim *player);
+void	animate_walk_left(t_var *vars, t_anim *player);
+void	animate_walk_right(t_var *vars, t_anim *player);
+void	animate_jump(t_var *vars, t_anim *player);
 void	animate_fall(t_var *vars, t_anim *player);
 
 /*put images*/
