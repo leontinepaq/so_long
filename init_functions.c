@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:52:31 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/05 12:53:01 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:46:59 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ void	find_special_items(t_var *vars)
 int	init_game(t_var *vars)
 {
 	vars->game->collectibles = 0;
-	vars->game->moves = 0;
+	vars->game->moves = -1;
+	vars->game->nb_moves = NULL;
+	if (update_nb_moves(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	vars->game->end_of_game = 0;
-	vars->game->player->timestamp = 0;/////////////
+	vars->game->player->timestamp = 0;
 	vars->game->player->movement = NORMAL;
 	vars->game->player->direction = DIR_RIGHT;
 	vars->game->player->anim_frame = 0;

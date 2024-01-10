@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 20:18:49 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:34:16 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,25 @@ void	move_on_tiles(t_var *vars, int move_x, int move_y)
 	vars->game->player->position->y_tile += move_y;
 }
 
-void	move_player(t_var *vars, int move_x, int move_y)
+int	update_nb_moves(t_var *vars)
+{
+	char *str_moves;
+	
+	vars->game->moves++;
+	if (vars->game->nb_moves)
+		free (vars->game->nb_moves);
+	str_moves = ft_itoa(vars->game->moves);
+	if (!str_moves)
+		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+	vars->game->nb_moves = ft_strjoin("Number of moves : ",str_moves);
+	if (!vars->game->nb_moves)
+		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+	free(str_moves);
+	ft_printf("Number of moves : %d\n", vars->game->moves);
+	return (EXIT_SUCCESS);
+}
+
+int	move_player(t_var *vars, int move_x, int move_y)
 {
 	int	x;
 	int	y;
@@ -91,7 +109,7 @@ void	move_player(t_var *vars, int move_x, int move_y)
 	x = vars->game->player->position->x_tile;
 	y = vars->game->player->position->y_tile;
 	if (vars->game->end_of_game == 1)
-		return ;
+		return (EXIT_SUCCESS);
 	if (vars->map->tiles[y + move_y][x + move_x] == 'C'
 		|| vars->map->tiles[y + move_y][x + move_x] == '0')
 	{
@@ -100,8 +118,10 @@ void	move_player(t_var *vars, int move_x, int move_y)
 			update_player_on_x(vars, move_x);
 		if (move_y != 0)
 			update_player_on_y(vars, move_y);
-		vars->game->moves++;
+		if (update_nb_moves(vars) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	}
 	else if (vars->map->tiles[y + move_y][x + move_x] == 'e')
 		display_victory(vars, move_x, move_y);
+	return (EXIT_SUCCESS);
 }

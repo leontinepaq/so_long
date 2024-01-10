@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 23:11:23 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:14:46 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	open_assets(t_var *vars)
 int	open_img(t_var *vars)
 {
 	vars->img->width = vars->map->width * TILE_SIZE * vars->scale;
-	vars->img->height = vars->map->height * TILE_SIZE * vars->scale;
+//	vars->img->height = (vars->map->height + 1) * TILE_SIZE * vars->scale;
+	vars->img->height = (vars->map->height * TILE_SIZE + 16) * vars->scale;
 	vars->img->img_ptr = mlx_new_image(vars->mlx,
 			vars->img->width, vars->img->height);
 	if (!vars->img->img_ptr)
@@ -60,7 +61,7 @@ int	open_window(t_var *vars)
 	int	h;
 
 	w = vars->map->width * TILE_SIZE;
-	h = vars->map->height * TILE_SIZE;
+	h = vars->map->height * TILE_SIZE + 16;
 	vars->scale = 1;
 	if (2 * w < 2560 && 2 * h < 1440)
 	{

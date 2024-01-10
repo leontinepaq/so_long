@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 23:20:53 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:34:12 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	put_specific_tile(int x, int y, t_var *vars)
 			((y * TILE_SIZE) - OVERLAP_SIZE) * vars->scale);
 }
 
-int	put_tiles(t_var *vars)
+void	put_tiles(t_var *vars)
 {
 	int	x;
 	int	y;
@@ -61,7 +61,25 @@ int	put_tiles(t_var *vars)
 		y++;
 	}
 	put_specific_tile(x_exit, y_exit, vars);
-	return (EXIT_SUCCESS);
+}
+
+void	put_nb_moves(t_var *vars)
+{
+	int	x;
+	int	y;
+
+	y = vars->map->height * TILE_SIZE * vars->scale + 1;
+	while (y < (vars->map->height * TILE_SIZE + 16) * vars->scale)
+	{
+		x = 0;
+		while (x < vars->map->width * TILE_SIZE * vars->scale)
+		{
+			my_pixel_put(vars->img, x, y, 0x2d1f12);
+			x++;
+		}
+		y++;
+	}
+	
 }
 
 int	render(t_var *vars)
@@ -69,10 +87,11 @@ int	render(t_var *vars)
 	if (!vars->win)
 		return (EXIT_FAILURE);
 	animate_player(vars);
-	if (put_background(vars) == EXIT_FAILURE
-		|| put_tiles(vars) == EXIT_FAILURE
-		|| put_player(vars) == EXIT_FAILURE)
+	put_background(vars);
+	put_tiles(vars);
+	if (put_player(vars) == EXIT_FAILURE)
 		return (close_window(vars), EXIT_FAILURE);
+	put_nb_moves(vars);
 	if (vars->game->end_of_game == 1)
 	{
 		overlap_image(vars, vars->assets->victory,
@@ -84,5 +103,8 @@ int	render(t_var *vars)
 	if (mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0)
 		== EXIT_FAILURE)
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
+	mlx_string_put(vars->mlx,
+		vars->win, vars->map->width * TILE_SIZE * vars->scale / 2 - 32,
+		(vars->map->height * TILE_SIZE + 10) * vars->scale, 0xffffff, vars->game->nb_moves);
 	return (EXIT_SUCCESS);
 }
