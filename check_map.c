@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:30:39 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 12:24:10 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:40:32 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_content_chars(t_map *map)
 		else if (map->content[i] == 'E')
 			is_exit++;
 		else if (map->content[i] != '1' && map->content[i] != '0'
-			&& map->content[i] != '\n')
+			&& map->content[i] != '\n' && map->content[i] != 'M')
 			return (ft_printf(ERROR_MAP_MESS ERROR_MAP_UNKNOWN), EXIT_FAILURE);
 		i++;
 	}
@@ -88,10 +88,10 @@ int	check_objects(t_map *map)
 	while (map->content[i])
 	{
 		if (map->content[i] == 'C' || map->content[i] == 'P'
-			|| map->content[i] == 'E')
+			|| map->content[i] == 'E' || map->content[i] == 'M')
 		{
-			if (map->content[i + map->width] != '1')
-				return (ft_printf(ERROR_MAP_MESS ERROR_MAP_OBJS), EXIT_FAILURE);
+			if (map->content[i + 1 + map->width] != '1')
+				return (ft_printf(ERROR_MAP_MESS ERROR_MAP_OBJS), ft_printf("i : %d\n", i), EXIT_FAILURE);
 		}
 		i++;
 	}

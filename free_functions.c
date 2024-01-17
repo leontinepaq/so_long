@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:47:15 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/09 15:13:44 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:51:26 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	free_assets(t_var *vars)
 	free_one_asset(vars->mlx, vars->assets->background_2);
 	free_one_asset(vars->mlx, vars->assets->background_3);
 	free_one_asset(vars->mlx,vars->assets->victory);
+	free_one_asset(vars->mlx, vars->assets->mole);
 	free(vars->assets);
 }
 

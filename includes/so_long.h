@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/10 14:25:09 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:03:15 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <sys/time.h>
+# include <math.h>
 
 # define ERROR_MALLOC "Error\nProblem with memory allocation (malloc function)\n"
 # define ERROR_MLX "Error\nSomething went wrong using a minilibx function\n"
@@ -28,7 +29,7 @@
 # define ERROR_MAP_WALLS "Map must be closed by walls\n"
 # define ERROR_MAP_PATH "No valid path found\n"
 # define ERROR_MAP_CONTAINS "Must have 1 'P', at least 1 'C' and 1 'E'\n"
-# define ERROR_MAP_OBJS "Objects ('C', 'P' and 'E') must be on the ground\n"
+# define ERROR_MAP_OBJS "Objects ('C', 'P', 'M' and 'E') must be on the ground\n"
 
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
@@ -111,6 +112,7 @@ typedef struct s_assets
 	t_img	*background_2;
 	t_img	*background_3;
 	t_img	*victory;
+	t_img	*mole;
 }	t_assets;
 
 typedef struct s_var
@@ -179,6 +181,11 @@ int				render(t_var *vars);
 /*put background*/
 void			put_layer_background(t_var *vars, t_img *background);
 void			put_background(t_var *vars);
+
+/*put moles*/
+void 			animate_mole(int x, int y,int *row, int *col);
+int				put_one_mole(t_var *vars, int x, int y);
+int 			put_moles(t_var *vars);
 
 /*put player*/
 t_img			*create_transp_sprite(t_var *vars);

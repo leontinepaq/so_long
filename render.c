@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/09 15:34:12 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:17:45 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	render(t_var *vars)
 	animate_player(vars);
 	put_background(vars);
 	put_tiles(vars);
-	if (put_player(vars) == EXIT_FAILURE)
+	if (put_moles(vars) == EXIT_FAILURE || put_player(vars) == EXIT_FAILURE)
 		return (close_window(vars), EXIT_FAILURE);
 	put_nb_moves(vars);
 	if (vars->game->end_of_game == 1)
