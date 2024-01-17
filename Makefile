@@ -1,7 +1,7 @@
 NAME = so_long
 
 SRCS = 	main.c init_functions.c \
-		open_map.c check_map.c check_path.c \
+		open_map.c check_map.c check_path.c check_path_color_map.c\
 		open_window.c play_game.c move_player.c \
 		render.c put_player.c put_background.c \
 		put_images.c scale_image.c \

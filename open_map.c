@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/09 13:33:34 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:32:33 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	check_map(t_map *map)
 	if (check_content_chars(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (check_walls(map) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (check_objects(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (check_valid_path(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -106,7 +108,7 @@ int	open_map(t_map *map)
 	map->tiles = NULL;
 	fd = open("maps/map_test.ber", O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error reading the map\n"), EXIT_FAILURE);
+		return (ft_printf("Error\nProblem reading the map\n"), EXIT_FAILURE);
 	if (read_map(fd, map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	close(fd);

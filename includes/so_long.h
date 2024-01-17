@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/10 12:05:31 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:25:09 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 # include <X11/X.h>
 # include <sys/time.h>
 
-# define ERROR_MALLOC "Error malloc\n"
-# define ERROR_MLX "Error MLX\n"
+# define ERROR_MALLOC "Error\nProblem with memory allocation (malloc function)\n"
+# define ERROR_MLX "Error\nSomething went wrong using a minilibx function\n"
 # define ERROR_MAP_MESS "Error\nProblem with the configuration of the map : "
 # define ERROR_MAP_RECT "Map is not rectangular\n"
 # define ERROR_MAP_UNKNOWN "Unknown character\n"
 # define ERROR_MAP_WALLS "Map must be closed by walls\n"
 # define ERROR_MAP_PATH "No valid path found\n"
 # define ERROR_MAP_CONTAINS "Must have 1 'P', at least 1 'C' and 1 'E'\n"
+# define ERROR_MAP_OBJS "Objects ('C', 'P' and 'E') must be on the ground\n"
 
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
@@ -138,10 +139,13 @@ int				read_map(int fd, t_map *map);
 int				check_size(t_map *map);
 int				check_content_chars(t_map *map);
 int				check_walls(t_map *map);
+int				check_objects(t_map *map);
+
+/*check path*/
 int				check_valid_path(t_map *map);
 int				check_exit(char *map, int width);
 
-/*check path*/
+/*check path - color map*/
 int				color_cell(char *map, int cell);
 int				color_adjacent_cells(char *map, int cell, int width,
 					int height);

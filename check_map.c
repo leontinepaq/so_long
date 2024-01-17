@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:30:39 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/18 13:56:09 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:24:10 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,42 +80,20 @@ int	check_walls(t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-int	check_exit(char *map, int width)
+int	check_objects(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while (map[i] != 'E')
-		i++;
-	if (map[i - 1] == '@'
-		|| map[i + 1] == '@'
-		|| map[i - (width + 1)] == '@'
-		|| map[i + (width + 1)] == '@')
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
-}
-
-int	check_valid_path(t_map *map)
-{
-	char	*colored_map;
-	int		i;
-
-	colored_map = ft_strdup(map->content);
-	if (!colored_map)
-		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-	color_map(colored_map, map->width, map->height);
-	i = 0;
-	while (colored_map[i])
+	while (map->content[i])
 	{
-		if (colored_map[i] == 'C')
+		if (map->content[i] == 'C' || map->content[i] == 'P'
+			|| map->content[i] == 'E')
 		{
-			free (colored_map);
-			return (ft_printf(ERROR_MAP_MESS ERROR_MAP_PATH), EXIT_FAILURE);
+			if (map->content[i + map->width] != '1')
+				return (ft_printf(ERROR_MAP_MESS ERROR_MAP_OBJS), EXIT_FAILURE);
 		}
 		i++;
 	}
-	if (check_exit(colored_map, map->width) == EXIT_FAILURE)
-		return (ft_printf(ERROR_MAP_MESS ERROR_MAP_PATH), EXIT_FAILURE);
-	free(colored_map);
 	return (EXIT_SUCCESS);
 }

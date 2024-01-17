@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/08 23:22:42 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:21:39 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	animate_player(t_var *vars)
 		play_movement_animation(vars);
 		vars->game->player->timestamp = current_timestamp;
 	}
+//	ft_printf(" --> x : %d, y :%d, pos_tile : %d, dir : %d, move : %d\n", vars->game->player->position->x_tile, vars->game->player->position->y_tile,vars->game->player->position->pos_on_tile, vars->game->player->direction, vars->game->player->movement);
 	if (current_timestamp - vars->game->player->timestamp < 700)
 		return ;
 	if (vars->game->player->movement == NORMAL)

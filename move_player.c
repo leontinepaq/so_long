@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/10 11:34:16 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:22:53 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	update_player_on_x(t_var *vars, int move_x)
 
 void	update_player_on_y(t_var *vars, int move_y)
 {
-	if (move_y == -1)
+	if (move_y == -1 && vars->game->player->position->pos_on_tile != POS_UP)
 	{
 		vars->game->player->movement = JUMP;
 		vars->game->player->direction = DIR_UP;
@@ -69,7 +69,7 @@ void	move_on_tiles(t_var *vars, int move_x, int move_y)
 	y = vars->game->player->position->y_tile;
 	if (vars->map->tiles[y + move_y][x + move_x] == '1'
 		|| vars->map->tiles[y + move_y][x + move_x] == 'E')
-		return ;
+			return ;
 	if (vars->map->tiles[y + move_y][x + move_x] == 'C')
 	{
 		vars->game->collectibles--;
@@ -101,6 +101,18 @@ int	update_nb_moves(t_var *vars)
 	return (EXIT_SUCCESS);
 }
 
+int player_is_moving (t_var *vars, int move_x, int move_y)
+{
+	move_on_tiles(vars, move_x, move_y);
+	if (move_x != 0)
+		update_player_on_x(vars, move_x);
+	if (move_y != 0)
+		update_player_on_y(vars, move_y);
+	if (update_nb_moves(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	move_player(t_var *vars, int move_x, int move_y)
 {
 	int	x;
@@ -110,17 +122,19 @@ int	move_player(t_var *vars, int move_x, int move_y)
 	y = vars->game->player->position->y_tile;
 	if (vars->game->end_of_game == 1)
 		return (EXIT_SUCCESS);
+	if (move_y == -1 && vars->game->player->position->pos_on_tile == POS_UP
+		&& vars->map->tiles[y - 1 + move_y][x + move_x] == '1')
+	{
+		move_on_tiles (vars, move_x, move_y);
+		vars->game->player->position->pos_on_tile = POS_CENTER;
+		return (EXIT_SUCCESS);
+	}
 	if (vars->map->tiles[y + move_y][x + move_x] == 'C'
 		|| vars->map->tiles[y + move_y][x + move_x] == '0')
-	{
-		move_on_tiles(vars, move_x, move_y);
-		if (move_x != 0)
-			update_player_on_x(vars, move_x);
-		if (move_y != 0)
-			update_player_on_y(vars, move_y);
-		if (update_nb_moves(vars) == EXIT_FAILURE)
+		{
+		if (player_is_moving(vars, move_x, move_y) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	}
+		}
 	else if (vars->map->tiles[y + move_y][x + move_x] == 'e')
 		display_victory(vars, move_x, move_y);
 	return (EXIT_SUCCESS);
