@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 16:42:28 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:17:31 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	read_map(int fd, t_map *map)
 		tmp = ft_strjoin(map->content, line);
 		if (!tmp)
 			return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-			// leaks lies au  get nextline non fini d'etre lu
 		free(map->content);
 		map->content = tmp;
 	}

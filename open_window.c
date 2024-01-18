@@ -6,13 +6,13 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 18:29:23 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:01:25 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-int open_one_asset(t_var *vars, t_img **asset, char *path)
+int	open_asset(t_var *vars, t_img **asset, char *path)
 {
 	*asset = file_to_image(vars, path);
 	if (!*asset)
@@ -26,58 +26,25 @@ int open_one_asset(t_var *vars, t_img **asset, char *path)
 
 int	open_assets(t_var *vars)
 {
-	int res;
-	
+	int	res;
+
 	res = EXIT_SUCCESS;
-	res += open_one_asset(vars, &vars->assets->collectible, "designs/champ_final.xpm");
-	res += open_one_asset(vars, &vars->assets->exit_close, "designs/exit_close.xpm");
-	res += open_one_asset(vars, &vars->assets->exit_open, "designs/exit_open.xpm");
-	res += open_one_asset(vars, &vars->assets->player, "designs/AnimationSheet_Character4.xpm");
-	res += open_one_asset(vars, &vars->assets->tile_ground, "designs/tile_ground.xpm") ;
-	res += open_one_asset(vars, &vars->assets->tile_wall, "designs/tile_wall.xpm");
-	res += open_one_asset(vars, &vars->assets->background_1, "designs/Rock1.xpm");
-	res += open_one_asset(vars, &vars->assets->background_2, "designs/Rock2.xpm");
-	res += open_one_asset(vars, &vars->assets->background_3, "designs/Rock3.xpm");
-	res += open_one_asset(vars, &vars->assets->victory, "designs/victory.xpm");
-	res += open_one_asset(vars, &vars->assets->game_over, "designs/game_over.xpm");
-	res += open_one_asset(vars, &vars->assets->mole, "designs/mole2.xpm");
+	res += open_asset(vars, &vars->assets->collectible, "designs/champi.xpm");
+	res += open_asset(vars, &vars->assets->exit_close, "designs/exit_c.xpm");
+	res += open_asset(vars, &vars->assets->exit_open, "designs/exit_o.xpm");
+	res += open_asset(vars, &vars->assets->player, "designs/character.xpm");
+	res += open_asset(vars, &vars->assets->tile_ground, "designs/ground.xpm");
+	res += open_asset(vars, &vars->assets->tile_wall, "designs/wall.xpm");
+	res += open_asset(vars, &vars->assets->background_1, "designs/rock1.xpm");
+	res += open_asset(vars, &vars->assets->background_2, "designs/rock2.xpm");
+	res += open_asset(vars, &vars->assets->background_3, "designs/rock3.xpm");
+	res += open_asset(vars, &vars->assets->victory, "designs/victory.xpm");
+	res += open_asset(vars, &vars->assets->game_over, "designs/game_over.xpm");
+	res += open_asset(vars, &vars->assets->mole, "designs/mole.xpm");
 	if (res != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);		
-}
-
-/*
-int	open_assets(t_var *vars)
-{
-	vars->assets->collectible = file_to_image(vars, "designs/champ_final.xpm");
-	vars->assets->exit_close = file_to_image(vars, "designs/exit_close.xpm");
-	vars->assets->exit_open = file_to_image(vars, "designs/exit_open.xpm");
-	vars->assets->tile_ground = file_to_image(vars, "designs/tile_ground.xpm");
-	vars->assets->tile_wall = file_to_image(vars, "designs/tile_wall.xpm");
-	vars->assets->player = file_to_image(vars,
-			"designs/AnimationSheet_Character4.xpm");
-	vars->assets->background_1 = file_to_image(vars, "designs/Rock1.xpm");
-	vars->assets->background_2 = file_to_image(vars, "designs/Rock2.xpm");
-	vars->assets->background_3 = file_to_image(vars, "designs/Rock3.xpm");
-	vars->assets->victory = file_to_image(vars, "designs/victory.xpm");
-	vars->assets->game_over = file_to_image(vars, "designs/game_over.xpm");
-	vars->assets->mole = file_to_image(vars, "designs/mole2.xpm");
-	if (!vars->assets->collectible
-		|| !vars->assets->exit_close
-		|| !vars->assets->exit_open
-		|| !vars->assets->tile_ground
-		|| !vars->assets->tile_wall
-		|| !vars->assets->player
-		|| !vars->assets->background_1
-		|| !vars->assets->background_2
-		|| !vars->assets->background_3
-		|| !vars->assets->victory
-		|| !vars->assets->game_over
-		|| !vars->assets->mole)
-		return (ft_printf(ERROR_MLX), ft_printf("While opening assets\n"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-*/
 
 int	open_img(t_var *vars)
 {

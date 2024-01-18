@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 17:31:30 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:04:52 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	play_movement_animation(t_var *vars)
 		animate_jump(vars, vars->game->player);
 	if (vars->game->player->movement == FALL)
 		animate_fall(vars, vars->game->player);
-	if (vars->game->player->movement == DEATH 
+	if (vars->game->player->movement == DEATH
 		&& vars->game->player->anim_frame != 6
 		&& vars->game->player->anim_frame != 13)
 		vars->game->player->anim_frame += 1;
@@ -82,7 +82,6 @@ void	animate_player(t_var *vars)
 		play_movement_animation(vars);
 		vars->game->player->timestamp = current_timestamp;
 	}
-//	ft_printf(" --> x : %d, y :%d, pos_tile : %d, dir : %d, move : %d\n", vars->game->player->position->x_tile, vars->game->player->position->y_tile,vars->game->player->position->pos_on_tile, vars->game->player->direction, vars->game->player->movement);
 	if (current_timestamp - vars->game->player->timestamp < 700)
 		return ;
 	if (vars->game->player->movement == NORMAL)
@@ -91,11 +90,3 @@ void	animate_player(t_var *vars)
 		vars->game->player->timestamp = current_timestamp;
 	}
 }
-/*
-		ft_printf("NEXT MOVE\n");
-		ft_printf("movement : %d - dir : %d - anim_frame : %d 
-		- pos tile : %d - x_tile : %d\n",
-		vars->game->player->movement, vars->game->player->direction,
-		vars->game->player->anim_frame, vars->game->player->position->pos_on_tile,
-		vars->game->player->position->x_tile);
-*/

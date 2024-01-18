@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 17:45:55 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:39:34 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,11 @@ void			find_special_items(t_var *vars);
 int				init_game(t_var *vars);
 
 /*open map*/
-int				open_map(t_map *map);
-int				check_map(t_map *map);
-int				create_tiles(t_map *map);
 int				read_map(int fd, t_map *map);
+int				check_map(t_map *map);
+int				malloc_tiles(t_map *maP);
+int				create_tiles(t_map *map);
+int				open_map(t_map *map);
 
 /*check map*/
 int				check_size(t_map *map);
@@ -146,8 +147,8 @@ int				check_walls(t_map *map);
 int				check_objects(t_map *map);
 
 /*check path*/
-int				check_valid_path(t_map *map);
 int				check_exit(char *map, int width);
+int				check_valid_path(t_map *map);
 
 /*check path - color map*/
 int				color_cell(char *map, int cell);
@@ -158,16 +159,21 @@ void			init_colored_map(char *map);
 void			color_map(char *map, int width, int height);
 
 /*open window*/
+int				open_asset(t_var *vars, t_img **asset, char *path);
 int				open_assets(t_var *vars);
 int				open_img(t_var *vars);
 int				open_window(t_var *vars);
 
 /*move player.c*/
-void			update_playe_on_x(t_var *vars, int move_x);
-void			update_playe_on_y(t_var *vars, int move_y);
-void			move_on_tiles(t_var *vars, int move_x, int move_y);
+void			update_player_on_x(t_var *vars, int move_x);
+void			update_player_on_y(t_var *vars, int move_y);
 int				update_nb_moves(t_var *vars);
+int				player_is_moving(t_var *vars, int move_x, int move_y);
 int				move_player(t_var *vars, int move_x, int move_y);
+
+/*move on tiles*/
+void			collect_collectibles(t_var *vars);
+void			move_on_tiles(t_var *vars, int move_x, int move_y);
 
 /*play game*/
 void			open_exit(t_var *vars);
@@ -185,13 +191,15 @@ void			put_layer_background(t_var *vars, t_img *background);
 void			put_background(t_var *vars);
 
 /*put moles*/
-void 			animate_mole(int x, int y,int *row, int *col);
+void			animate_mole(int x, int y, int *row, int *col);
 int				put_one_mole(t_var *vars, int x, int y);
-int 			put_moles(t_var *vars);
+int				put_moles(t_var *vars);
 
 /*put player*/
 t_img			*create_transp_sprite(t_var *vars);
 t_img			*crop_sprite(t_img *sheet, t_var *vars, int row, int col);
+void			find_coordinates(int *x_ptr, int *y_ptr,
+					t_var *vars, t_pos *position);
 int				put_player(t_var *vars);
 
 /*animate player*/
@@ -211,11 +219,12 @@ void			animate_fall(t_var *vars, t_anim *player);
 /*put images*/
 unsigned int	find_color_pixel(t_img *img, int x, int y);
 void			my_pixel_put(t_img *img, int x, int y, int color);
-void			make_transparent(t_img *img);
 void			overlap_image(t_var *vars, t_img *src, int pos_x, int pos_y);
+void			make_transparent(t_img *img);
 t_img			*file_to_image(t_var *vars, char *path);
 
 /*scale image*/
+void			copy_img_scaled(t_img *scaled_img, t_img	*img);
 t_img			*scale_img(t_var *vars, t_img *img);
 
 /*free functions*/
@@ -225,6 +234,8 @@ void			free_assets(t_var *vars);
 void			free_vars(t_var *vars);
 
 /*close game*/
+void			check_game_over(t_var *vars);
+void			display_end_of_game(t_var *vars);
 void			close_window(t_var *vars);
 int				closure(t_var *vars);
 

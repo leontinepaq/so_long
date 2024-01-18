@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:26:03 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/10 11:53:09 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:18:22 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	display_victory(t_var *vars, int move_x, int move_y)
 
 int	manage_keys(int keysym, t_var *vars)
 {
-	int res;
+	int	res;
 
 	res = EXIT_SUCCESS;
 	if (!vars->win)

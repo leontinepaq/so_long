@@ -6,14 +6,13 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:16:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 15:26:32 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:20:06 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-
-void animate_mole(int x, int y,int *row, int *col)
+void	animate_mole(int x, int y, int *row, int *col)
 {
 	struct timeval	te;
 	time_t			current_timestamp;
@@ -35,11 +34,9 @@ void animate_mole(int x, int y,int *row, int *col)
 	}
 }
 
-
 int	put_one_mole(t_var *vars, int x, int y)
 {
 	t_img	*mole;
-
 	int		row;
 	int		col;
 
@@ -49,14 +46,14 @@ int	put_one_mole(t_var *vars, int x, int y)
 	mole = crop_sprite(vars->assets->mole, vars, row, col);
 	if (!mole)
 		return (EXIT_FAILURE);
-	overlap_image(vars, mole, x * TILE_SIZE * vars->scale, y * TILE_SIZE * vars->scale);
+	overlap_image(vars, mole, x * TILE_SIZE * vars->scale,
+		y * TILE_SIZE * vars->scale);
 	mlx_destroy_image(vars->mlx, mole->img_ptr);
 	free(mole);
 	return (EXIT_SUCCESS);
 }
 
-
-int put_moles(t_var *vars) 
+int	put_moles(t_var *vars)
 {
 	int	x;
 	int	y;
