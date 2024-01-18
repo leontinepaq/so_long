@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 15:45:29 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:31:30 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	play_movement_animation(t_var *vars)
 		animate_jump(vars, vars->game->player);
 	if (vars->game->player->movement == FALL)
 		animate_fall(vars, vars->game->player);
+	if (vars->game->player->movement == DEATH 
+		&& vars->game->player->anim_frame != 6
+		&& vars->game->player->anim_frame != 13)
+		vars->game->player->anim_frame += 1;
 }
 
 void	animate_player(t_var *vars)

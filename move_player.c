@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 15:25:26 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:05:46 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	move_on_tiles(t_var *vars, int move_x, int move_y)
 	int	x;
 	int	y;
 
-	if (vars->game->end_of_game == 1)
+	if (vars->game->end_of_game == 1 || vars->game->end_of_game == -1)
 		return ;
 	x = vars->game->player->position->x_tile;
 	y = vars->game->player->position->y_tile;
@@ -138,7 +138,7 @@ int	move_player(t_var *vars, int move_x, int move_y)
 
 	x = vars->game->player->position->x_tile;
 	y = vars->game->player->position->y_tile;
-	if (vars->game->end_of_game == 1)
+	if (vars->game->end_of_game == 1 || vars->game->end_of_game == -1)
 		return (EXIT_SUCCESS);
 //	if (vars->map->tiles[y + move_y][x + move_x] == 'C' || vars->map->tiles[y][x] == 'm')
 //		move_with_moles(vars, move_x, move_y);

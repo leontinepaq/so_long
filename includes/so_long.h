@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 18:03:15 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:45:55 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define WALK 2
 # define JUMP 5
 # define FALL 6
+# define DEATH 8
 
 # define POS_CENTER 0
 # define POS_UP 1
@@ -112,6 +113,7 @@ typedef struct s_assets
 	t_img	*background_2;
 	t_img	*background_3;
 	t_img	*victory;
+	t_img	*game_over;
 	t_img	*mole;
 }	t_assets;
 
