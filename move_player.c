@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 14:22:53 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:25:26 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,15 @@ void	move_on_tiles(t_var *vars, int move_x, int move_y)
 		if (vars->game->collectibles == 0)
 			open_exit(vars);
 	}
-	if (vars->map->tiles[y + move_y][x + move_x] != 'e')
+	if (vars->map->tiles[y + move_y][x + move_x] != 'e' 
+		&& vars->map->tiles[y + move_y][x + move_x] != 'M')
 		vars->map->tiles[y + move_y][x + move_x] = 'P';
-	vars->map->tiles[y][x] = '0';
+	else if (vars->map->tiles[y + move_y][x + move_x] == 'M')
+		vars->map->tiles[y + move_y][x + move_x] = 'm';
+	if (vars->map->tiles[y][x] == 'm')
+		vars->map->tiles[y][x] = 'M';
+	else
+		vars->map->tiles[y][x] = '0';
 	vars->game->player->position->x_tile += move_x;
 	vars->game->player->position->y_tile += move_y;
 }
@@ -113,6 +119,18 @@ int player_is_moving (t_var *vars, int move_x, int move_y)
 	return (EXIT_SUCCESS);
 }
 
+/*
+int	move_with_moles(t_var *vars, int move_x, int move_y)
+{
+	int	x;
+	int	y;
+
+	x = vars->game->player->position->x_tile;
+	y = vars->game->player->position->y_tile;
+	if 
+}
+*/
+
 int	move_player(t_var *vars, int move_x, int move_y)
 {
 	int	x;
@@ -122,6 +140,8 @@ int	move_player(t_var *vars, int move_x, int move_y)
 	y = vars->game->player->position->y_tile;
 	if (vars->game->end_of_game == 1)
 		return (EXIT_SUCCESS);
+//	if (vars->map->tiles[y + move_y][x + move_x] == 'C' || vars->map->tiles[y][x] == 'm')
+//		move_with_moles(vars, move_x, move_y);
 	if (move_y == -1 && vars->game->player->position->pos_on_tile == POS_UP
 		&& vars->map->tiles[y - 1 + move_y][x + move_x] == '1')
 	{
@@ -130,7 +150,8 @@ int	move_player(t_var *vars, int move_x, int move_y)
 		return (EXIT_SUCCESS);
 	}
 	if (vars->map->tiles[y + move_y][x + move_x] == 'C'
-		|| vars->map->tiles[y + move_y][x + move_x] == '0')
+		|| vars->map->tiles[y + move_y][x + move_x] == '0'
+		|| vars->map->tiles[y + move_y][x + move_x] == 'M')
 		{
 		if (player_is_moving(vars, move_x, move_y) == EXIT_FAILURE)
 			return (EXIT_FAILURE);

@@ -5,7 +5,7 @@ SRCS = 	main.c init_functions.c \
 		open_window.c play_game.c move_player.c \
 		render.c put_player.c put_background.c \
 		put_images.c scale_image.c \
-		put_moles.c animate_moles.c \
+		put_moles.c \
 		animate_player.c animation_movements.c \
 		free_functions.c close_game.c
 

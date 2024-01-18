@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 18:13:54 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:06:37 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	open_assets(t_var *vars)
 	vars->assets->tile_ground = file_to_image(vars, "designs/tile_ground.xpm");
 	vars->assets->tile_wall = file_to_image(vars, "designs/tile_wall.xpm");
 	vars->assets->player = file_to_image(vars,
-			"designs/AnimationSheet_Character3.xpm");
+			"designs/AnimationSheet_Character4.xpm");
 	vars->assets->background_1 = file_to_image(vars, "designs/Rock1.xpm");
 	vars->assets->background_2 = file_to_image(vars, "designs/Rock2.xpm");
 	vars->assets->background_3 = file_to_image(vars, "designs/Rock3.xpm");

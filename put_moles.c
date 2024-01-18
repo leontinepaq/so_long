@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:16:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 18:02:57 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:26:32 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int put_moles(t_var *vars)
 		x = 0;
 		while (x < vars->map->width)
 		{
-			if (vars->map->tiles[y][x] == 'M')
+			if (vars->map->tiles[y][x] == 'M' || vars->map->tiles[y][x] == 'm')
 			{
 				if (put_one_mole(vars, x, y) == EXIT_FAILURE)
 					return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 12:21:39 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:45:29 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_player_on_ground(t_var *vars)
 	x = vars->game->player->position->x_tile;
 	y = vars->game->player->position->y_tile;
 	tile_bellow = vars->map->tiles[y + 1][x];
-	if (tile_bellow == 'C' || tile_bellow == '0')
+	if (tile_bellow == 'C' || tile_bellow == '0' || tile_bellow == 'M')
 		return (FALSE);
 	return (TRUE);
 }
