@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:17:31 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:31:28 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	read_map(int fd, t_map *map)
 	line = get_next_line(fd);
 	if (!line)
 		return (ft_printf(ERROR_MAP_MESS"Empty map\n"), EXIT_FAILURE);
-	map->content = ft_strdup(line);
+	map->content = ft_strdup(line);//////////////////////////////////////
 	if (!map->content)
-		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+		return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 	map->width = ft_strlen(line)-1;
 	while (line)
 	{
@@ -32,7 +32,7 @@ int	read_map(int fd, t_map *map)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		tmp = ft_strjoin(map->content, line);
+		tmp = ft_strjoin(map->content, line); //////////////////////////////////////
 		if (!tmp)
 			return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 		free(map->content);
@@ -109,7 +109,7 @@ int	open_map(t_map *map)
 	if (fd < 0)
 		return (ft_printf("Error\nProblem reading the map\n"), EXIT_FAILURE);
 	if (read_map(fd, map) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (close(fd), EXIT_FAILURE);
 	close(fd);
 	if (check_map(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:26:03 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:18:22 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:03:58 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	manage_keys(int keysym, t_var *vars)
 	else if (keysym == XK_Escape)
 		close_window(vars);
 	if (res > 0)
-		return (EXIT_FAILURE);
+		return (close_window(vars), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

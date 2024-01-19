@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:19:41 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:21:33 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:03:25 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,20 @@ int	render(t_var *vars)
 {
 	if (!vars->win)
 		return (EXIT_FAILURE);
-	animate_player(vars);
+	if (animate_player(vars) == EXIT_FAILURE)
+		return (close_window(vars), EXIT_FAILURE);
 	put_background(vars);
 	put_tiles(vars);
 	if (put_moles(vars) == EXIT_FAILURE || put_player(vars) == EXIT_FAILURE)
 		return (close_window(vars), EXIT_FAILURE);
 	put_nb_moves(vars);
-	check_game_over(vars);
+	if (check_game_over(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (vars->game->end_of_game == 1 || vars->game->end_of_game == -1)
 		display_end_of_game(vars);
 	if (mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img_ptr, 0, 0)
 		== EXIT_FAILURE)
-		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
+		return (close_window(vars), ft_printf(ERROR_MLX), EXIT_FAILURE);
 	mlx_string_put(vars->mlx,
 		vars->win, vars->map->width * TILE_SIZE * vars->scale / 2 - 32,
 		(vars->map->height * TILE_SIZE + 10) * vars->scale,

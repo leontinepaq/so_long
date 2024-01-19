@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 15:49:32 by lpaquatt          #+#    #+#             */
-/*   Updated: 2023/12/12 01:59:41 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:17:47 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int	main (void)
 	//ft_printf("- %c\n- %s\n- %p\n- %d\n- %i\n- %u\n- %x\n- %X\n- %%\n",
 	//'c', "str", str, 033, 15, (unsigned int)4294967295, 15, 15);
 	//printf("-------------------\n");
-	printf("- %c\n- %s\n- %p\n- %d\n- %i\n- %u\n- %x\n- %X\n- %%\n", 'c', "str", str, 033, 15, (unsigned int)4294967295, 15, 15);
+	printf("- %c\n- %s\n- %p\n- %d\n- %i\n- %u\n- %x\n- %X\n- %%\n", 'c', 
+	"str", str, 033, 15, (unsigned int)4294967295, 15, 15);
 
 	printf("ft_printf : %d\n", ft_printf("%x\n", -15));
 	printf("printtf : %d\n", printf("%x\n", -15));

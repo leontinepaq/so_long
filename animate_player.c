@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:22:16 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:04:52 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:36:38 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,31 @@ void	play_movement_animation(t_var *vars)
 		vars->game->player->anim_frame += 1;
 }
 
-void	animate_player(t_var *vars)
+int	animate_player(t_var *vars)
 {
 	struct timeval	te;
 	time_t			current_timestamp;
 
-	gettimeofday(&te, NULL);
+	if (gettimeofday(&te, NULL) == -1)
+		return (ft_printf(ERROR_GETTIME), EXIT_FAILURE);
 	current_timestamp = (time_t)((te.tv_sec * 1000) + te.tv_usec / 1000);
 	if (vars->game->player->timestamp == 0)
 		vars->game->player->timestamp = current_timestamp;
 	if (vars->game->player->timestamp == -1)
 		first_animation (vars, vars->game->player, current_timestamp);
 	if (current_timestamp - vars->game->player->timestamp < 150)
-		return ;
+		return (EXIT_SUCCESS);
 	if (vars->game->player->movement != NORMAL)
 	{
 		play_movement_animation(vars);
 		vars->game->player->timestamp = current_timestamp;
 	}
 	if (current_timestamp - vars->game->player->timestamp < 700)
-		return ;
+		return (EXIT_SUCCESS);
 	if (vars->game->player->movement == NORMAL)
 	{
 		animate_normal(vars, vars->game->player);
 		vars->game->player->timestamp = current_timestamp;
 	}
+	return (EXIT_SUCCESS);
 }

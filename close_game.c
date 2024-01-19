@@ -6,13 +6,13 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:18:02 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:21:51 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:02:18 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-void	check_game_over(t_var *vars)
+int	check_game_over(t_var *vars)
 {
 	int				x;
 	int				y;
@@ -24,7 +24,8 @@ void	check_game_over(t_var *vars)
 	if (vars->map->tiles[y][x] == 'm'
 		&& vars->game->player->movement != DEATH)
 	{
-		gettimeofday(&te, NULL);
+		if (gettimeofday(&te, NULL) == -1)
+			return (ft_printf(ERROR_GETTIME), EXIT_FAILURE);
 		current_timestamp = (time_t)((te.tv_sec * 1000) + te.tv_usec / 1000);
 		current_timestamp += fmod(sin(x) + cos(y), 1.0) * 8000;
 		if (current_timestamp % 8000 > 2100 && current_timestamp % 8000 < 4500
@@ -37,6 +38,7 @@ void	check_game_over(t_var *vars)
 				vars->game->player->anim_frame = 7;
 		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	display_end_of_game(t_var *vars)

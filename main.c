@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:17:33 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/04 12:49:06 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:56:12 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	if (init_game(vars) == EXIT_FAILURE)
 		return (free_vars(vars), EXIT_FAILURE);
 	if (open_window(vars) == EXIT_FAILURE)
-		return (free_assets(vars), free_vars(vars), EXIT_FAILURE);
+		return (free_vars(vars), EXIT_FAILURE);
 	mlx_loop_hook(vars->mlx, &render, vars);
 	mlx_hook(vars->win, KeyPress, KeyPressMask, &manage_keys, vars);
 	mlx_hook(vars->win, ClientMessage, NoEventMask, &closure, vars);

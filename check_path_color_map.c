@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:36:56 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/10 14:46:51 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:25:45 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ void	init_colored_map(char *map)
 void	color_map(char *map, int width, int height)
 {
 	init_colored_map(map);
-	while (TRUE)
-	{
-		if (color_map_cells(map, width, height) == TRUE)
-			break ;
-	}
+	while (color_map_cells(map, width, height) != TRUE)
+		continue ;
 }

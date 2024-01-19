@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:20:53 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 17:29:59 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:45:14 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	animate_normal(t_var *vars, t_anim *player)
 		player->position->pos_on_tile = POS_CENTER;
 	else if (is_player_on_ground(vars) == FALSE)
 	{
-		move_player(vars, 0, 1);
+		move_on_tiles(vars, 0, 1);
 		player->position->pos_on_tile = POS_UP;
 		player->movement = FALL;
 		player->anim_frame = 0;
@@ -104,7 +104,7 @@ void	animate_fall(t_var *vars, t_anim *player)
 		player->position->pos_on_tile = POS_CENTER;
 	else if (is_player_on_ground(vars) == FALSE)
 	{
-		move_player(vars, 0, 1);
+		move_on_tiles(vars, 0, 1);
 		player->position->pos_on_tile = POS_UP;
 		player->movement = FALL;
 		player->anim_frame = 0;

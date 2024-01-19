@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:13:54 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:06:10 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	update_nb_moves(t_var *vars)
 		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 	vars->game->nb_moves = ft_strjoin("Number of moves : ", str_moves);
 	if (!vars->game->nb_moves)
-		return (ft_printf(ERROR_MALLOC), EXIT_FAILURE);
+		return (free(str_moves), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
 	free(str_moves);
 	ft_printf("Number of moves : %d\n", vars->game->moves);
 	return (EXIT_SUCCESS);

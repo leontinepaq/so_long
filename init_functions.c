@@ -6,11 +6,37 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:52:31 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/17 18:17:09 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:52:27 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
+
+t_var	*malloc_game(t_var *vars)
+{
+	vars->game = malloc(sizeof(t_game));
+	if (!vars->game)
+		return (free(vars->map), free(vars), ft_printf(ERROR_MALLOC), NULL);
+	vars->game->player = malloc(sizeof(t_anim));
+	if (! vars->game->player)
+	{
+		free(vars->game);
+		free(vars->map);
+		free(vars);
+		return (ft_printf(ERROR_MALLOC), NULL);
+	}
+	vars->game->player->position = malloc(sizeof(t_pos));
+	if (!vars->game->player->position)
+	{
+		free(vars->game->player);
+		free(vars->game);
+		free(vars->map);
+		free(vars);
+		return (ft_printf(ERROR_MALLOC), NULL);
+	}
+	vars->game->nb_moves = NULL;
+	return (vars);
+}
 
 t_var	*malloc_vars(void)
 {
@@ -21,19 +47,20 @@ t_var	*malloc_vars(void)
 		return (ft_printf(ERROR_MALLOC), NULL);
 	vars->map = malloc(sizeof(t_map));
 	if (!vars->map)
-		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
-	vars->game = malloc(sizeof(t_game));
-	if (!vars->game)
-		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
-	vars->game->player = malloc(sizeof(t_anim));
-	if (! vars->game->player)
-		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
-	vars->game->player->position = malloc(sizeof(t_pos));
-	if (!vars->game->player->position)
-		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
+		return (free(vars), ft_printf(ERROR_MALLOC), NULL);
+	vars->map->content = NULL;
+	vars->map->tiles = NULL;
+	if (malloc_game(vars) == NULL)
+		return (NULL);
 	vars->img = malloc(sizeof(t_img));
 	if (!vars->img)
-		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
+	{
+		free(vars->game->player->position);
+		free(vars->game->player);
+		free(vars->game);
+		free(vars->map);
+		return (free(vars), ft_printf(ERROR_MALLOC), NULL);
+	}
 	vars->assets = malloc(sizeof(t_assets));
 	if (!vars->assets)
 		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);

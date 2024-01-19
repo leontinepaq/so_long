@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:47:15 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:08:39 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:14:59 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,10 @@ void	free_assets(t_var *vars)
 	free_one_asset(vars->mlx, vars->assets->victory);
 	free_one_asset(vars->mlx, vars->assets->game_over);
 	free_one_asset(vars->mlx, vars->assets->mole);
-	free(vars->assets);
 }
 
-void	free_vars(t_var *vars)
+void	free_game(t_var *vars)
 {
-	if (vars->map)
-	{
-		if (vars->map->content)
-			free(vars->map->content);
-		if (vars->map->tiles)
-			free_tiles(vars->map);
-		free(vars->map);
-	}
 	if (vars->game)
 	{
 		if (vars->game->player)
@@ -74,6 +65,21 @@ void	free_vars(t_var *vars)
 			free(vars->game->nb_moves);
 		free(vars->game);
 	}
+}
+
+void	free_vars(t_var *vars)
+{
+	if (vars->map)
+	{
+		if (vars->map->content)
+			free(vars->map->content);
+		if (vars->map->tiles)
+			free_tiles(vars->map);
+		free(vars->map);
+	}
+	free_game(vars);
+	if (vars->assets)
+		free (vars->assets);
 	if (vars->img)
 		free(vars->img);
 	if (vars)

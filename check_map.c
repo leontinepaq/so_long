@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:30:39 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:07:26 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:19:55 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_size(t_map *map)
 		return (ft_printf(ERROR_MAP_MESS "Map too small\n"), EXIT_FAILURE);
 	if (map->height > MAX_SIZE_MAP || map->width > MAX_SIZE_MAP)
 		return (ft_printf(ERROR_MAP_MESS "Map too big\n"), EXIT_FAILURE);
-	if (strlen(map->content) - (map->height - 1)
+	if (ft_strlen(map->content) - (map->height - 1)
 		!= (size_t)(map->height * map->width))
 		return (ft_printf(ERROR_MAP_MESS ERROR_MAP_RECT), EXIT_FAILURE);
 	i = 0;

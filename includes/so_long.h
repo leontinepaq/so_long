@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/18 22:39:34 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:24:39 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define ERROR_MALLOC "Error\nProblem with memory allocation (malloc function)\n"
 # define ERROR_MLX "Error\nSomething went wrong using a minilibx function\n"
+# define ERROR_GETTIME "Error\nProblem with gettimeofday function\n"
 # define ERROR_MAP_MESS "Error\nProblem with the configuration of the map : "
 # define ERROR_MAP_RECT "Map is not rectangular\n"
 # define ERROR_MAP_UNKNOWN "Unknown character\n"
@@ -207,7 +208,7 @@ int				is_player_on_ground(t_var *vars);
 void			first_animation(t_var *vars, t_anim *player,
 					time_t current_timestamp);
 void			play_movement_animation(t_var *vars);
-void			animate_player(t_var *vars);
+int				animate_player(t_var *vars);
 
 /*animation movements*/
 void			animate_normal(t_var *vars, t_anim *player);
@@ -231,10 +232,11 @@ t_img			*scale_img(t_var *vars, t_img *img);
 void			free_tiles(t_map *map);
 void			free_one_asset(void *mlx, t_img *asset);
 void			free_assets(t_var *vars);
+void			free_game(t_var *vars);
 void			free_vars(t_var *vars);
 
 /*close game*/
-void			check_game_over(t_var *vars);
+int				check_game_over(t_var *vars);
 void			display_end_of_game(t_var *vars);
 void			close_window(t_var *vars);
 int				closure(t_var *vars);
