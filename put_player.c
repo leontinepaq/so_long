@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:33:43 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/05 13:59:41 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:28:30 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ t_img	*create_transp_sprite(t_var *vars)
 	sprite->height = SPRITE_SIZE * vars->scale;
 	sprite->img_ptr = mlx_new_image(vars->mlx, sprite->width, sprite->height);
 	if (!sprite->img_ptr)
-		return (ft_printf(ERROR_MLX), NULL);
+		return (free(sprite), ft_printf(ERROR_MLX), NULL);
 	sprite->img_pixels_ptr = mlx_get_data_addr(sprite->img_ptr,
 			&sprite->bits_per_pixel,
 			&sprite->line_len, &sprite->endian);
+	if (!sprite->img_pixels_ptr)
+		return (mlx_destroy_image(vars->mlx, sprite->img_ptr),
+			free(sprite), ft_printf(ERROR_MLX), NULL);
 	make_transparent(sprite);
 	return (sprite);
 }

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 23:11:47 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/03 12:44:13 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:50:13 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ t_img	*file_to_image(t_var *vars, char *path)
 	img->img_pixels_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_len, &img->endian);
 	img = scale_img(vars, img);
+	if (!img)
+		return (ft_printf("Reading file : %s\n", path), NULL);
 	return (img);
 }

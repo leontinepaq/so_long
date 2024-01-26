@@ -6,40 +6,11 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:37:17 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/19 17:31:28 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:03:01 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
-
-int	read_map(int fd, t_map *map)
-{
-	char	*line;
-	char	*tmp;
-
-	map->height = 0;
-	line = get_next_line(fd);
-	if (!line)
-		return (ft_printf(ERROR_MAP_MESS"Empty map\n"), EXIT_FAILURE);
-	map->content = ft_strdup(line);//////////////////////////////////////
-	if (!map->content)
-		return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-	map->width = ft_strlen(line)-1;
-	while (line)
-	{
-		free(line);
-		map->height++;
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		tmp = ft_strjoin(map->content, line); //////////////////////////////////////
-		if (!tmp)
-			return (free(line), ft_printf(ERROR_MALLOC), EXIT_FAILURE);
-		free(map->content);
-		map->content = tmp;
-	}
-	return (EXIT_SUCCESS);
-}
 
 int	check_map(t_map *map)
 {
@@ -99,13 +70,13 @@ int	create_tiles(t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-int	open_map(t_map *map)
+int	open_map(t_map *map, char *map_path)
 {
 	int		fd;
 
 	map->content = NULL;
 	map->tiles = NULL;
-	fd = open("maps/map_test.ber", O_RDONLY);
+	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (ft_printf("Error\nProblem reading the map\n"), EXIT_FAILURE);
 	if (read_map(fd, map) == EXIT_FAILURE)

@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/19 14:24:39 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:03:51 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,14 @@ void			find_special_items(t_var *vars);
 int				init_game(t_var *vars);
 
 /*open map*/
-int				read_map(int fd, t_map *map);
 int				check_map(t_map *map);
 int				malloc_tiles(t_map *maP);
 int				create_tiles(t_map *map);
-int				open_map(t_map *map);
+int				open_map(t_map *map, char *map_path);
+
+/*read map*/
+int				read_map(int fd, t_map *map);
+void			end_gnl(int fd);
 
 /*check map*/
 int				check_size(t_map *map);
@@ -192,7 +195,7 @@ void			put_layer_background(t_var *vars, t_img *background);
 void			put_background(t_var *vars);
 
 /*put moles*/
-void			animate_mole(int x, int y, int *row, int *col);
+int				animate_mole(int x, int y, int *row, int *col);
 int				put_one_mole(t_var *vars, int x, int y);
 int				put_moles(t_var *vars);
 
@@ -236,6 +239,7 @@ void			free_game(t_var *vars);
 void			free_vars(t_var *vars);
 
 /*close game*/
+
 int				check_game_over(t_var *vars);
 void			display_end_of_game(t_var *vars);
 void			close_window(t_var *vars);

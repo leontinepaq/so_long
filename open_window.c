@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:25 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/19 17:33:54 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:16:14 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ int	open_asset(t_var *vars, t_img **asset, char *path)
 {
 	*asset = file_to_image(vars, path);
 	if (!*asset)
-	{
-		ft_printf(ERROR_MLX);
-		ft_printf("While opening asset : %s\n", path);
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -53,8 +49,7 @@ int	open_img(t_var *vars)
 	vars->img->img_ptr = mlx_new_image(vars->mlx,
 			vars->img->width, vars->img->height);
 	if (!vars->img->img_ptr)
-		return (free(vars->img), close_window(vars),
-			ft_printf(ERROR_MLX), EXIT_FAILURE);
+		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
 	vars->img->img_pixels_ptr = mlx_get_data_addr(vars->img->img_ptr,
 			&vars->img->bits_per_pixel,
 			&vars->img->line_len, &vars->img->endian);
@@ -85,7 +80,7 @@ int	open_window(t_var *vars)
 		free (vars->mlx);
 		return (ft_printf(ERROR_MLX), EXIT_FAILURE);
 	}
-	if (open_img(vars) == EXIT_FAILURE || open_assets(vars) == EXIT_FAILURE)
+	if (open_assets(vars) == EXIT_FAILURE || open_img(vars) == EXIT_FAILURE)
 		return (closure(vars), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

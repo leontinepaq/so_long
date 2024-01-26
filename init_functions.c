@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 12:52:31 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/19 16:52:27 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:16:24 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ t_var	*malloc_vars(void)
 		free(vars->game->player->position);
 		free(vars->game->player);
 		free(vars->game);
-		free(vars->map);
-		return (free(vars), ft_printf(ERROR_MALLOC), NULL);
+		return (free(vars->map), free(vars), ft_printf(ERROR_MALLOC), NULL);
 	}
+	vars->img->img_ptr = NULL;
 	vars->assets = malloc(sizeof(t_assets));
 	if (!vars->assets)
 		return (free_vars(vars), ft_printf(ERROR_MALLOC), NULL);
