@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 01:06:01 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/26 17:03:51 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:39:27 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void			move_on_tiles(t_var *vars, int move_x, int move_y);
 
 /*play game*/
 void			open_exit(t_var *vars);
-void			display_victory(t_var *vars, int move_x, int move_y);
+int				display_victory(t_var *vars, int move_x, int move_y);
 int				manage_keys(int keysym, t_var *vars);
 
 /*render*/

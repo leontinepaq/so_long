@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:26:03 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/19 17:03:58 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:36:52 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ void	open_exit(t_var *vars)
 	}
 }
 
-void	display_victory(t_var *vars, int move_x, int move_y)
+int	display_victory(t_var *vars, int move_x, int move_y)
 {
 	move_on_tiles(vars, move_x, move_y);
+	if (update_nb_moves(vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	vars->game->end_of_game = 1;
 	ft_printf("VICTORY !!!\nFinal number of moves : %d\n", vars->game->moves);
+	return (EXIT_SUCCESS);
 }
 
 int	manage_keys(int keysym, t_var *vars)

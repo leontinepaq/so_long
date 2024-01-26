@@ -6,7 +6,7 @@
 /*   By: lpaquatt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:03:57 by lpaquatt          #+#    #+#             */
-/*   Updated: 2024/01/26 17:17:43 by lpaquatt         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:37:30 by lpaquatt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	move_player(t_var *vars, int move_x, int move_y)
 			return (EXIT_FAILURE);
 	}
 	else if (vars->map->tiles[y + move_y][x + move_x] == 'e')
-		display_victory(vars, move_x, move_y);
+		if (display_victory(vars, move_x, move_y) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
